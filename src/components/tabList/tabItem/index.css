@@ -1,0 +1,25 @@
+.tab-item {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  cursor: pointer;
+}
+
+.tab-item--selected {
+  background-color: #e0f7fa;
+}
+
+.tab-item__checkbox {
+  margin-right: 10px;
+}
+
+.tab-item__icon {
+  margin-right: 8px;
+}
+
+.tab-item__title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1;
+}

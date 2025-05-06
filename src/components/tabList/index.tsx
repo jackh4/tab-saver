@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useChromeTabs from "../../hooks/useChromeTabs";
 import TabItem from "./tabItem";
+import './index.css';
 
 const TabList = () => {
   const { chromeTabs, loading, error, refreshTabs } = useChromeTabs();
@@ -8,20 +9,18 @@ const TabList = () => {
 
   const toggleSelect = (tabId: number) => {
     setSelectedIds((prev) =>
-      prev.includes(tabId)
-        ? prev.filter((id) => id !== tabId)
-        : [...prev, tabId]
+      prev.includes(tabId) ? prev.filter((id) => id !== tabId) : [...prev, tabId]
     );
   };
 
   return (
-    <div>
-      <header>
+    <div className="tab-list">
+      <header className="tab-list__header">
         <button onClick={refreshTabs}>Refresh Tabs</button>
       </header>
 
-      {loading && <p>Loading tabs...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
+      {loading && <p className="tab-list__status">Loading tabs...</p>}
+      {error && <p className="tab-list__error">{error}</p>}
 
       <ul>
         {chromeTabs.map((tab) => (
@@ -34,21 +33,22 @@ const TabList = () => {
         ))}
       </ul>
 
-      <div style={{ marginTop: '10px' }}>
+      <div className="tab-list__actions">
         <button
+          className="tab-list__button"
           onClick={() => {
-            console.log('Saving tabs:', selectedIds);
+            console.log("Saving tabs:", selectedIds);
           }}
           disabled={selectedIds.length === 0}
         >
           Save Selected
         </button>
         <button
+          className="tab-list__button"
           onClick={() => {
             const allTabIds = chromeTabs.map((t) => t.id!);
-            console.log('Saving all tabs:', allTabIds);
+            console.log("Saving all tabs:", allTabIds);
           }}
-          style={{ marginLeft: '10px' }}
         >
           Save All
         </button>

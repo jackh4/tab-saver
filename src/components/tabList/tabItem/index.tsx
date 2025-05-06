@@ -1,3 +1,5 @@
+import './index.css';
+
 type TabItemProps = {
   tab: chrome.tabs.Tab;
   selected: boolean;
@@ -8,19 +10,13 @@ const TabItem = ({ tab, selected, toggleSelect }: TabItemProps) => {
   return (
     <li
       onClick={() => toggleSelect(tab.id!)}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        padding: '6px',
-        cursor: 'pointer',
-        backgroundColor: selected ? '#e0f7fa' : 'transparent',
-      }}
+      className={`tab-item ${selected ? 'tab-item--selected' : ''}`}
     >
       <input
         type="checkbox"
         checked={selected}
         onChange={() => toggleSelect(tab.id!)}
-        style={{ marginRight: '10px' }}
+        className="tab-item__checkbox"
       />
       {tab.favIconUrl && (
         <img
@@ -28,18 +24,10 @@ const TabItem = ({ tab, selected, toggleSelect }: TabItemProps) => {
           alt="favicon"
           width={16}
           height={16}
-          style={{ marginRight: '8px' }}
+          className="tab-item__icon"
         />
       )}
-      <span
-        style={{
-          whiteSpace: 'nowrap',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          flex: 1,
-        }}
-        title={tab.title ?? ''}
-      >
+      <span className="tab-item__title" title={tab.title ?? ''}>
         {tab.title}
       </span>
     </li>
