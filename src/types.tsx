@@ -1,12 +1,13 @@
 export interface SavedTab {
-  title: string;
   icon?: string;
+  title: string;
   url: string;
-  savedAt: string;
+  savedAt: string; // tab folder id 
 }
 
-export interface TabSession {
+export interface TabFolder {
+  id: string;
   name: string;
-  date: string;
+  date: Date;
   tabs: SavedTab[];
 }

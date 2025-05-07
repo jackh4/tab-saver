@@ -1,6 +1,7 @@
 import { useState } from "react";
 import useChromeTabs from "../../hooks/useChromeTabs";
 import TabItem from "./tabItem";
+import { TabFolder } from "../../types";
 import './index.css';
 
 const TabList = () => {
@@ -12,6 +13,23 @@ const TabList = () => {
       prev.includes(tabId) ? prev.filter((id) => id !== tabId) : [...prev, tabId]
     );
   };
+
+  const saveTabsToChromeStorage = async (newTabFolder: TabFolder) => {
+    try {
+      const result = await chrome.storage.local.get(['tabFolders']);
+      const tabFolders: TabFolder[] = Array.isArray(result.tabFolders)
+        ? [...result.tabFolders]
+        : [];
+
+      tabFolders.push(newTabFolder)
+
+      await chrome.storage.local.set({'tabFolders': tabFolders}, () => {
+        console.log('Tabs saved to chrome storage: ', tabFolders)
+      })
+    } catch(err) {
+      console.error('Error saving tabs: ', err)
+    }
+  }
 
   return (
     <div className="tab-list">
@@ -33,21 +51,47 @@ const TabList = () => {
         ))}
       </ul>
 
+      {/* TODO: Create function for onClick create tab folder */}
       <div className="tab-list__actions">
         <button
           className="tab-list__button"
           onClick={() => {
-            console.log("Saving tabs:", selectedIds);
+            const selectedTabs = chromeTabs.filter(tab => selectedIds.includes(tab.id!));
+            const session: TabFolder = {
+              id: crypto.randomUUID(),
+              name: "Placeholder - Selected Tabs",
+              date: new Date(),
+              tabs: selectedTabs.map(tab => ({
+                icon: tab.favIconUrl,
+                title: tab.title || 'No title',
+                url: tab.url || '',
+                savedAt: new Date().toISOString(),
+              })),
+            };
+
+            saveTabsToChromeStorage(session);
           }}
           disabled={selectedIds.length === 0}
         >
           Save Selected
         </button>
+
         <button
           className="tab-list__button"
           onClick={() => {
-            const allTabIds = chromeTabs.map((t) => t.id!);
-            console.log("Saving all tabs:", allTabIds);
+            const session: TabFolder = {
+              id: crypto.randomUUID(),
+              name: "Placeholder - All Tabs",
+              date: new Date(),
+              tabs: chromeTabs.map(tab => ({
+                icon: tab.favIconUrl,
+                title: tab.title || 'No title',
+                url: tab.url || '',
+                savedAt: new Date().toISOString(),
+              })),
+            };
+
+            saveTabsToChromeStorage(session);
           }}
         >
           Save All
