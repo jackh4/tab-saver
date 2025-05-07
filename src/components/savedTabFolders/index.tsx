@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { TabFolder } from "../../types";
+import { useEffect, useState } from 'react';
+import { TabFolder } from '../../types';
 
 const SavedTabFolders = () => {
   const [tabFolders, setTabFolders] = useState<TabFolder[]>([]);
