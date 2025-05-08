@@ -7,9 +7,9 @@
     "default_popup": "index.html"
   },
   "permissions": [
+    "tabs",
     "storage",
-    "unlimitedStorage",
-    "scripting"
+    "unlimitedStorage"
   ],
   "host_permissions": [
     "http://*/*",

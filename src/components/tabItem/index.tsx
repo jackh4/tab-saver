@@ -1,7 +1,8 @@
+import { SavedTab } from '../../types';
 import './index.css';
 
 type TabItemProps = {
-  tab: chrome.tabs.Tab;
+  tab: SavedTab;
   selected: boolean;
   toggleSelect: (tabId: number) => void;
 };

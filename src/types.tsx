@@ -1,5 +1,6 @@
 export interface SavedTab {
-  icon?: string;
+  id?: number;
+  favIconUrl?: string;
   title: string;
   url: string;
   savedAt: string; // tab folder id 

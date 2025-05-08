@@ -30,8 +30,8 @@ const SavedTabFolders = () => {
             <ul>
               {folder.tabs.map((tab, index) => (
                 <li key={index}>
-                  {tab.icon && (
-                    <img src={tab.icon} alt="icon" />
+                  {tab.favIconUrl && (
+                    <img src={tab.favIconUrl} alt="icon" />
                   )}
                   <a href={tab.url} target="_blank" rel="noreferrer">
                     {tab.title}
