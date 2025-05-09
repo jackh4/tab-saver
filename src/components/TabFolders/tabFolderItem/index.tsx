@@ -1,20 +1,16 @@
 import './index.css';
 import { TabFolder } from '../../../types';
 import TabItem from '../../tabItem';
-import { useState } from 'react';
+import useSelectedTabs from '../../../hooks/useSelectedTabs';
 
 type TabFolderProps = {
 	folder: TabFolder;
 };
 
 const TabFolderItem = (tabFolder: TabFolderProps) => {
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
+  const { selectedIds, toggleSelect } = useSelectedTabs();
 
-  const toggleSelect = (tabId: number) => {
-    setSelectedIds((prev) =>
-      prev.includes(tabId) ? prev.filter((id) => id !== tabId) : [...prev, tabId]
-    );
-  }; 
+  // TODO: enable delete specific tab
 
   return (
     <ul>

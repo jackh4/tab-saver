@@ -1,5 +1,5 @@
 import './App.css'
-import SavedTabFolders from './savedTabFolders'
+import SavedTabFolders from './TabFolders'
 import TabList from './tabList'
 
 function App() {

@@ -1,10 +1,15 @@
 import { useEffect, useState } from 'react';
 import { TabFolder } from '../../types';
+import TabFolderItem from './tabFolderItem';
 
 const SavedTabFolders = () => {
   const [tabFolders, setTabFolders] = useState<TabFolder[]>([]);
 
-  useEffect(() => {
+  // TODO: add open selected tabs
+  // TODO: add open all tabs
+  // TODO: delete tab folder from storage
+
+  const getTabFolders = () => {
     if (typeof chrome !== 'undefined' && chrome.storage?.local) {
       chrome.storage.local.get(['tabFolders'], (result) => {
         const folders = Array.isArray(result.tabFolders) ? result.tabFolders : [];
@@ -14,7 +19,11 @@ const SavedTabFolders = () => {
       console.log(chrome)
       console.warn('chrome.storage.local is not available');
     }
-  }, []);
+  }
+
+  useEffect(() => {
+    getTabFolders()
+  }, [tabFolders]);
   
   return (
     <div>
@@ -27,18 +36,7 @@ const SavedTabFolders = () => {
           <div key={folder.id}>
             <h3>{folder.name}</h3>
             <p>{new Date(folder.date).toLocaleString()}</p>
-            <ul>
-              {folder.tabs.map((tab, index) => (
-                <li key={index}>
-                  {tab.favIconUrl && (
-                    <img src={tab.favIconUrl} alt='icon' />
-                  )}
-                  <a href={tab.url} target='_blank' rel='noreferrer'>
-                    {tab.title}
-                  </a>
-                </li>
-              ))}
-            </ul>
+            <TabFolderItem key={folder.id} folder={folder}/>
           </div>
         ))
       )}
