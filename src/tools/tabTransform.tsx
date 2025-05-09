@@ -1,4 +1,4 @@
-import { SavedTab } from "../types";
+import { SavedTab } from '../types';
 
 const toSavedTab = (tab: chrome.tabs.Tab): SavedTab | null => {
   // if (tab.id === undefined || tab.url === undefined) return null;

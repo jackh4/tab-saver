@@ -14,21 +14,21 @@ const TabItem = ({ tab, selected, toggleSelect }: TabItemProps) => {
       className={`tab-item ${selected ? 'tab-item--selected' : ''}`}
     >
       <input
-        type="checkbox"
+        type='checkbox'
         checked={selected}
         onChange={() => toggleSelect(tab.id!)}
-        className="tab-item__checkbox"
+        className='tab-item__checkbox'
       />
       {tab.favIconUrl && (
         <img
           src={tab.favIconUrl}
-          alt="favicon"
+          alt='favicon'
           width={16}
           height={16}
-          className="tab-item__icon"
+          className='tab-item__icon'
         />
       )}
-      <span className="tab-item__title" title={tab.title ?? ''}>
+      <span className='tab-item__title' title={tab.title ?? ''}>
         {tab.title}
       </span>
     </li>

@@ -1,5 +1,5 @@
 import './index.css';
-import { TabFolder } from "../../../types";
+import { TabFolder } from '../../../types';
 import TabItem from '../../tabItem';
 import { useState } from 'react';
 
@@ -16,18 +16,18 @@ const TabFolderItem = (tabFolder: TabFolderProps) => {
     );
   }; 
 
-	return (
+  return (
     <ul>
-        {tabFolder.folder.tabs.map((tab) => (
-          <TabItem
-            key={tab.id}
-            tab={tab}
-            selected={selectedIds.includes(tab.id!)}
-            toggleSelect={toggleSelect}
-          />
-        ))}
-      </ul>
-	);
+      {tabFolder.folder.tabs.map((tab) => (
+        <TabItem
+          key={tab.id}
+          tab={tab}
+          selected={selectedIds.includes(tab.id!)}
+          toggleSelect={toggleSelect}
+        />
+      ))}
+    </ul>
+  );
 };
 
 export default TabFolderItem;

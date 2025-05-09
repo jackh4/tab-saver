@@ -5,14 +5,14 @@ const SavedTabFolders = () => {
   const [tabFolders, setTabFolders] = useState<TabFolder[]>([]);
 
   useEffect(() => {
-    if (typeof chrome !== "undefined" && chrome.storage?.local) {
-      chrome.storage.local.get(["tabFolders"], (result) => {
+    if (typeof chrome !== 'undefined' && chrome.storage?.local) {
+      chrome.storage.local.get(['tabFolders'], (result) => {
         const folders = Array.isArray(result.tabFolders) ? result.tabFolders : [];
         setTabFolders(folders);
       });
     } else {
       console.log(chrome)
-      console.warn("chrome.storage.local is not available");
+      console.warn('chrome.storage.local is not available');
     }
   }, []);
   
@@ -31,9 +31,9 @@ const SavedTabFolders = () => {
               {folder.tabs.map((tab, index) => (
                 <li key={index}>
                   {tab.favIconUrl && (
-                    <img src={tab.favIconUrl} alt="icon" />
+                    <img src={tab.favIconUrl} alt='icon' />
                   )}
-                  <a href={tab.url} target="_blank" rel="noreferrer">
+                  <a href={tab.url} target='_blank' rel='noreferrer'>
                     {tab.title}
                   </a>
                 </li>
