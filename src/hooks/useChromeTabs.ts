@@ -7,7 +7,7 @@ export default function useChromeTabs() {
 
   const fetchTabs = () => {
     if (typeof chrome !== 'undefined' && chrome?.tabs) {
-      chrome.tabs.query({}, (result) => {
+      chrome.tabs.query({}, result => {
         setChromeTabs(result)
         setLoading(false)
       })

@@ -1,35 +1,13 @@
-import { useState } from "react";
-import useChromeTabs from "../../hooks/useChromeTabs";
+import './index.css';
 import TabItem from "../tabItem";
 import { SavedTab, TabFolder } from "../../types";
-import './index.css';
+import useChromeTabs from "../../hooks/useChromeTabs";
+import useSelectedTabs from "../../hooks/useSelectedTabs";
+import { toSavedTabs } from "../../tools/tabTransform";
 
 const TabList = () => {
   const { chromeTabs, loading, error, refreshTabs } = useChromeTabs();
-  const [selectedIds, setSelectedIds] = useState<number[]>([]);
-
-  const toggleSelect = (tabId: number) => {
-    setSelectedIds((prev) =>
-      prev.includes(tabId) ? prev.filter((id) => id !== tabId) : [...prev, tabId]
-    );
-  };
-
-  const toSavedTab = (tab: chrome.tabs.Tab): SavedTab | null => {
-    if (tab.id === undefined || tab.url === undefined) return null;
-  
-    return {
-      id: tab.id,
-      favIconUrl: tab.favIconUrl,
-      title: tab.title ?? 'No title',
-      url: tab.url,
-      savedAt: new Date().toISOString(),
-    };
-  };
-  
-  const toSavedTabs = (tabs: chrome.tabs.Tab[]): SavedTab[] => {
-    return tabs.map(toSavedTab).filter((tab): tab is SavedTab => tab !== null);
-  };
-  
+  const { selectedIds, toggleSelect, clearSelection } = useSelectedTabs();
 
   const saveTabsToChromeStorage = async (newTabFolder: TabFolder) => {
     try {
@@ -48,6 +26,22 @@ const TabList = () => {
     }
   }
 
+  const createTabFolder = (tabs: SavedTab[], name: string): TabFolder => {
+    const tabFolder: TabFolder = {
+      id: crypto.randomUUID(),
+      name: name,
+        date: new Date(),
+        tabs: tabs.map(tab => ({
+          id: tab.id,
+          favIconUrl: tab.favIconUrl,
+          title: tab.title || 'No title',
+          url: tab.url || '',
+          savedAt: new Date().toISOString(),
+        })),
+    };
+    return tabFolder;
+  }
+
   return (
     <div className="tab-list">
       <header className="tab-list__header">
@@ -57,7 +51,6 @@ const TabList = () => {
       {loading && <p className="tab-list__status">Loading tabs...</p>}
       {error && <p className="tab-list__error">{error}</p>}
 
-      {/* Convert chrome.tabs.tab type to TabItem type */}
       <ul>
         {toSavedTabs(chromeTabs).map((tab) => (
           <TabItem
@@ -69,27 +62,14 @@ const TabList = () => {
         ))}
       </ul>
 
-      {/* TODO: Create function for onClick create tab folder */}
       <div className="tab-list__actions">
         <button
           className="tab-list__button"
           onClick={() => {
-            const selectedTabs = chromeTabs.filter(tab => selectedIds.includes(tab.id!));
-            const session: TabFolder = {
-              id: crypto.randomUUID(),
-              name: "Placeholder - Selected Tabs",
-              date: new Date(),
-              tabs: selectedTabs.map(tab => ({
-                // TODO: ensure tab id exists
-                id: tab.id,
-                favIconUrl: tab.favIconUrl,
-                title: tab.title || 'No title',
-                url: tab.url || '',
-                savedAt: new Date().toISOString(),
-              })),
-            };
-
-            saveTabsToChromeStorage(session);
+            const selectedTabs = toSavedTabs(chromeTabs).filter(tab => selectedIds.includes(tab.id!));
+            const tabFolder = createTabFolder(selectedTabs, "Selected Tabs");
+            saveTabsToChromeStorage(tabFolder);
+            clearSelection();
           }}
           disabled={selectedIds.length === 0}
         >
@@ -99,21 +79,9 @@ const TabList = () => {
         <button
           className="tab-list__button"
           onClick={() => {
-            const session: TabFolder = {
-              id: crypto.randomUUID(),
-              name: "Placeholder - All Tabs",
-              date: new Date(),
-              tabs: chromeTabs.map(tab => ({
-                // TODO: ensure tab id exists
-                id: tab.id,
-                favIconUrl: tab.favIconUrl,
-                title: tab.title || 'No title',
-                url: tab.url || '',
-                savedAt: new Date().toISOString(),
-              })),
-            };
-
-            saveTabsToChromeStorage(session);
+            const tabFolder = createTabFolder(toSavedTabs(chromeTabs), "Selected Tabs");
+            saveTabsToChromeStorage(tabFolder);
+            clearSelection();
           }}
         >
           Save All

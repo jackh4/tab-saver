@@ -1,6 +1,6 @@
 {
   "manifest_version": 3,
-  "name": "Chrome Extension",
+  "name": "Tab Saver",
   "description": "Initial setup extension",
   "version": "1.0.0",
   "action": {
@@ -8,11 +8,8 @@
   },
   "permissions": [
     "tabs",
+    "tabGroups",
     "storage",
     "unlimitedStorage"
-  ],
-  "host_permissions": [
-    "http://*/*",
-    "https://*/*"
   ]
 }
