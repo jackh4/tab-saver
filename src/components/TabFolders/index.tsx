@@ -4,9 +4,7 @@ import TabFolderItem from './tabFolderItem';
 
 const SavedTabFolders = () => {
   const [tabFolders, setTabFolders] = useState<TabFolder[]>([]);
-
-  // TODO: add open selected tabs
-  // TODO: add open all tabs
+  
   // TODO: delete tab folder from storage
 
   const getTabFolders = () => {
