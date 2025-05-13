@@ -18,6 +18,7 @@ export default defineConfig([
       ...pluginReact.configs.flat.recommended.rules,
       'quotes': ['error', 'single', { avoidEscape: true }],
       'jsx-quotes': ['error', 'prefer-single'],
+      'semi': ['error', 'always'],
       'eol-last': ['error', 'always'],
       'indent': ['error', 2],
       'react/react-in-jsx-scope': 'off'

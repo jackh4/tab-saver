@@ -1,5 +1,5 @@
-import './App.css'
-import Layout from './layout'
+import './App.css';
+import Layout from './layout';
 
 function App() {
 
@@ -7,7 +7,7 @@ function App() {
     <>
       <Layout/>
     </>
-  )
+  );
 }
 
-export default App
+export default App;

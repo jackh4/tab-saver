@@ -14,13 +14,13 @@ const SavedTabFolders = () => {
         setTabFolders(folders);
       });
     } else {
-      console.log(chrome)
+      console.log(chrome);
       console.warn('chrome.storage.local is not available');
     }
-  }
+  };
 
   useEffect(() => {
-    getTabFolders()
+    getTabFolders();
   }, [tabFolders]);
   
   return (

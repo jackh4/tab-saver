@@ -1,19 +1,19 @@
-import { useState } from 'react'
+import { useState } from 'react';
 
 export default function useSelectedTabs() {
-  const [selectedIds, setSelectedIds] = useState<number[]>([])
+  const [selectedIds, setSelectedIds] = useState<number[]>([]);
 
   const toggleSelect = (tabId: number) => {
     setSelectedIds((prev) =>
       prev.includes(tabId) ? prev.filter(id => id !== tabId) : [...prev, tabId]
-    )
-  }
+    );
+  };
 
   const selectAll = (tabIds: number[]) => setSelectedIds(tabIds);
 
   const clearSelection = () => setSelectedIds([]);
 
-  return { selectedIds, toggleSelect, selectAll, clearSelection }
+  return { selectedIds, toggleSelect, selectAll, clearSelection };
 }
 
 // import { useState } from 'react'

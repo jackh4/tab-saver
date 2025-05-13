@@ -16,15 +16,15 @@ const TabList = () => {
         ? [...result.tabFolders]
         : [];
 
-      tabFolders.push(newTabFolder)
+      tabFolders.push(newTabFolder);
 
       await chrome.storage.local.set({'tabFolders': tabFolders}, () => {
-        console.log('Tabs saved to chrome storage: ', tabFolders)
-      })
+        console.log('Tabs saved to chrome storage: ', tabFolders);
+      });
     } catch(err) {
-      console.error('Error saving tabs: ', err)
+      console.error('Error saving tabs: ', err);
     }
-  }
+  };
 
   const createTabFolder = (tabs: SavedTab[], name: string): TabFolder => {
     const tabFolder: TabFolder = {
@@ -40,7 +40,7 @@ const TabList = () => {
       })),
     };
     return tabFolder;
-  }
+  };
 
   return (
     <div className='tab-list'>
