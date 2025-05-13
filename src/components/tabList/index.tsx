@@ -44,12 +44,12 @@ const TabList = () => {
 
   return (
     <div className='tab-list'>
-      <header className='tab-list__header'>
+      <header className='tab-list-header'>
         <button onClick={refreshTabs}>Refresh Tabs</button>
       </header>
 
-      {loading && <p className='tab-list__status'>Loading tabs...</p>}
-      {error && <p className='tab-list__error'>{error}</p>}
+      {loading && <p className='tab-list-status'>Loading tabs...</p>}
+      {error && <p className='tab-list-error'>{error}</p>}
 
       <ul>
         {toSavedTabs(chromeTabs).map((tab) => (
@@ -62,9 +62,9 @@ const TabList = () => {
         ))}
       </ul>
 
-      <div className='tab-list__actions'>
+      <div className='tab-list-actions'>
         <button
-          className='tab-list__button'
+          className='tab-list-button'
           onClick={() => {
             const selectedTabs = toSavedTabs(chromeTabs).filter(tab => selectedIds.includes(tab.id!));
             const tabFolder = createTabFolder(selectedTabs, 'Selected Tabs');
@@ -77,7 +77,7 @@ const TabList = () => {
         </button>
 
         <button
-          className='tab-list__button'
+          className='tab-list-button'
           onClick={() => {
             const tabFolder = createTabFolder(toSavedTabs(chromeTabs), 'Selected Tabs');
             saveTabsToChromeStorage(tabFolder);

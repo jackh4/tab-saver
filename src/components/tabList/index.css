@@ -1,25 +1,25 @@
 .tab-list {
-  padding: 16px;
+  overflow-y: auto;
 }
 
-.tab-list__header {
+.tab-list-header {
   margin-bottom: 12px;
 }
 
-.tab-list__status {
+.tab-list-status {
   margin-bottom: 8px;
   font-style: italic;
 }
 
-.tab-list__error {
+.tab-list-error {
   color: red;
   margin-bottom: 8px;
 }
 
-.tab-list__actions {
+.tab-list-actions {
   margin-top: 10px;
 }
 
-.tab-list__button + .tab-list__button {
+.tab-list-button + .tab-list-button {
   margin-left: 10px;
 }

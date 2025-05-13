@@ -25,7 +25,7 @@ const TabFolderItem = ({ folder }: TabFolderProps) => {
 
   return (
     <div>
-      <div className="tab-folder-actions">
+      <div className='tab-folder-actions'>
         <button 
           onClick={openSelectedTabs} 
           disabled={selectedIds.length === 0}>

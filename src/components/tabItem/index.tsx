@@ -17,7 +17,7 @@ const TabItem = ({ tab, selected, toggleSelect }: TabItemProps) => {
         type='checkbox'
         checked={selected}
         onChange={() => toggleSelect(tab.id!)}
-        className='tab-item__checkbox'
+        className='tab-item-checkbox'
       />
       {tab.favIconUrl && (
         <img
@@ -25,10 +25,10 @@ const TabItem = ({ tab, selected, toggleSelect }: TabItemProps) => {
           alt='favicon'
           width={16}
           height={16}
-          className='tab-item__icon'
+          className='tab-item-icon'
         />
       )}
-      <span className='tab-item__title' title={tab.title ?? ''}>
+      <span className='tab-item-title' title={tab.title ?? ''}>
         {tab.title}
       </span>
     </li>

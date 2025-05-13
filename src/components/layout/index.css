@@ -1,0 +1,20 @@
+.flex-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.left-tab-list-main {
+  flex: 1;
+  min-width: 0;
+  max-width: 50%;
+  padding: 8px;
+  border-right: 1px solid #000000;
+}
+
+.right-tab-folders-main {
+  flex: 1;
+  min-width: 0;
+  max-width: 50%;
+  padding: 8px;
+}

@@ -9,15 +9,15 @@
   background-color: #e0f7fa;
 }
 
-.tab-item__checkbox {
+.tab-item-checkbox {
   margin-right: 10px;
 }
 
-.tab-item__icon {
+.tab-item-icon {
   margin-right: 8px;
 }
 
-.tab-item__title {
+.tab-item-title {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
