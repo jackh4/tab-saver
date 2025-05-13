@@ -7,7 +7,7 @@ import { toSavedTabs } from '../../tools/tabTransform';
 
 const TabList = () => {
   const { chromeTabs, loading, error, refreshTabs } = useChromeTabs();
-  const { selectedIds, toggleSelect, clearSelection } = useSelectedTabs();
+  const { selectedIds, toggleSelect, selectAll, clearSelection } = useSelectedTabs();
 
   const saveTabsToChromeStorage = async (newTabFolder: TabFolder) => {
     try {
@@ -50,6 +50,23 @@ const TabList = () => {
 
       {loading && <p className='tab-list-status'>Loading tabs...</p>}
       {error && <p className='tab-list-error'>{error}</p>}
+
+      <button
+        onClick={() => {
+          const allTabIds = toSavedTabs(chromeTabs).map(tab => tab.id!).filter(Boolean);
+          const areAllSelected = allTabIds.every(id => selectedIds.includes(id));
+
+          if (areAllSelected) {
+            clearSelection();
+          } else {
+            selectAll(allTabIds);
+          }
+        }}
+      >
+        {toSavedTabs(chromeTabs).every(tab => selectedIds.includes(tab.id!))
+          ? 'Unselect All'
+          : 'Select All'}
+      </button>
 
       <ul>
         {toSavedTabs(chromeTabs).map((tab) => (

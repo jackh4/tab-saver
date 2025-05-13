@@ -9,9 +9,11 @@ export default function useSelectedTabs() {
     )
   }
 
+  const selectAll = (tabIds: number[]) => setSelectedIds(tabIds);
+
   const clearSelection = () => setSelectedIds([]);
 
-  return { selectedIds, toggleSelect, clearSelection }
+  return { selectedIds, toggleSelect, selectAll, clearSelection }
 }
 
 // import { useState } from 'react'
@@ -25,7 +27,9 @@ export default function useSelectedTabs() {
 //       );
 //     };
 
+//     const selectAll = (items: T[]) => setSelectedItems(items);
+
 //     const clearSelection = () => setSelectedItems([])
 
-//   return { selectedItems, toggleSelect, clearSelection }
+//   return { selectedItems, toggleSelect, selectAll, clearSelection }
 // }
