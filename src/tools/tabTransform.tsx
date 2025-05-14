@@ -1,6 +1,6 @@
-import { SavedTab } from '../types';
+import { TabData } from '../types';
 
-const toSavedTab = (tab: chrome.tabs.Tab): SavedTab | null => {
+const toSavedTab = (tab: chrome.tabs.Tab): TabData | null => {
   // if (tab.id === undefined || tab.url === undefined) return null;
 
   return {
@@ -12,6 +12,6 @@ const toSavedTab = (tab: chrome.tabs.Tab): SavedTab | null => {
   };
 };
   
-export const toSavedTabs = (tabs: chrome.tabs.Tab[]): SavedTab[] => {
-  return tabs.map(toSavedTab).filter((tab): tab is SavedTab => tab !== null);
+export const toSavedTabs = (tabs: chrome.tabs.Tab[]): TabData[] => {
+  return tabs.map(toSavedTab).filter((tab): tab is TabData => tab !== null);
 };

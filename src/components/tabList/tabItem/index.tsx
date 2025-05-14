@@ -1,8 +1,8 @@
-import { SavedTab } from '../../types';
+import { TabData } from '../../../types';
 import './index.css';
 
 type TabItemProps = {
-  tab: SavedTab;
+  tab: TabData;
   selected: boolean;
   toggleSelect: (tabId: number) => void;
 };

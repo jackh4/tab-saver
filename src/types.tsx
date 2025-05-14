@@ -1,4 +1,4 @@
-export interface SavedTab {
+export interface TabData {
   id?: number;
   favIconUrl?: string;
   title: string;
@@ -10,5 +10,5 @@ export interface TabFolder {
   id: string;
   name: string;
   date: Date;
-  tabs: SavedTab[];
+  tabs: TabData[];
 }

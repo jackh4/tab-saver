@@ -1,14 +1,14 @@
 import './index.css';
 import { TabFolder } from '../../../types';
-import TabItem from '../../tabItem';
 import useSelectedTabs from '../../../hooks/useSelectedTabs';
+import TabList from '../../tabList';
 
 type TabFolderProps = {
 	folder: TabFolder;
 };
 
 const TabFolderItem = ({ folder }: TabFolderProps) => {
-  const { selectedIds, toggleSelect } = useSelectedTabs();
+  const { selectedIds, toggleSelect, selectAll, clearSelection } = useSelectedTabs();
 
   const openSelectedTabs = () => {
     const selectedTabs = folder.tabs.filter(
@@ -33,16 +33,13 @@ const TabFolderItem = ({ folder }: TabFolderProps) => {
         </button>
         <button onClick={openAllTabs}>Open All Tabs</button>
       </div>
-      <ul>
-        {folder.tabs.map((tab) => (
-          <TabItem
-            key={tab.id}
-            tab={tab}
-            selected={selectedIds.includes(tab.id!)}
-            toggleSelect={toggleSelect}
-          />
-        ))}
-      </ul>
+      <TabList
+        tabs={folder.tabs}
+        selectedIds={selectedIds}
+        toggleSelect={toggleSelect}
+        selectAll={selectAll} 
+        clearSelection={clearSelection}
+      />
     </div>
   );
 };

@@ -1,11 +1,11 @@
 import './index.css';
-import SavedTabFolders from '../TabFolders';
-import TabList from '../tabList';
+import CurrentTabsPanel from '../currentTabsPanel';
+import SavedTabFolders from '../tabFolders';
 
 const Layout = () => (
   <div className='flex-container'>
     <div className='left-tab-list-main'>
-      <TabList/>
+      <CurrentTabsPanel/>
     </div>
     <div className='right-tab-folders-main'>
       <SavedTabFolders/>
