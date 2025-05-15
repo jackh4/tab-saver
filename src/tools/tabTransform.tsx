@@ -1,7 +1,7 @@
 import { TabData } from '../types';
 
 const toSavedTab = (tab: chrome.tabs.Tab): TabData | null => {
-  // if (tab.id === undefined || tab.url === undefined) return null;
+  if (tab.id === undefined || tab.url === undefined) return null;
 
   return {
     id: tab.id,

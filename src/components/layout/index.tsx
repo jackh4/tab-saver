@@ -1,6 +1,6 @@
 import './index.css';
 import CurrentTabsPanel from '../currentTabsPanel';
-import SavedTabFolders from '../tabFolders';
+import SavedTabsPanel from '../savedTabsPanel';
 
 const Layout = () => (
   <div className='flex-container'>
@@ -8,7 +8,7 @@ const Layout = () => (
       <CurrentTabsPanel/>
     </div>
     <div className='right-tab-folders-main'>
-      <SavedTabFolders/>
+      <SavedTabsPanel/>
     </div>
   </div>
 );
