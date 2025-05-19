@@ -1,4 +1,4 @@
-import { MouseEventHandler } from "react";
+import { MouseEventHandler } from 'react';
 
 type TextProps = {
   text?: string;
@@ -18,13 +18,13 @@ const Text = ({
   const textStyle = {
     fontSize: size,
     color,
-  }
+  };
   
   return (
     <div style={textStyle} title={tooltipText} onClick={onClick}>
       {text}
     </div>
-  )
-}
+  );
+};
 
 export default Text;

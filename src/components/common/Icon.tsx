@@ -8,7 +8,7 @@ const Icon = ({
   type,
 }: IconProps) => {
 
-  const hoverColor = type === 'delete'
+  const hoverColor = type === 'delete';
 
   return (
     <div
@@ -16,7 +16,7 @@ const Icon = ({
     >
       {hoverColor}
     </div>
-  )
-}
+  );
+};
 
 export default Icon;
