@@ -1,14 +1,19 @@
-export interface TabData {
-  id?: number;
-  favIconUrl?: string;
+export interface tabData {
+  tabId: string;
+  favIcon: string;
   title: string;
   url: string;
-  savedAt: string; // tab folder id 
 }
 
-export interface TabFolder {
-  id: string;
-  name: string;
-  date: Date;
-  tabs: TabData[];
+export interface windowTabData {
+  windowId: string;
+  title: string;
+  tabs: tabData[];
+}
+
+export interface tabFolderData {
+  tabFolderId: string;
+  title: string;
+  date: string;
+  windows: windowTabData[];
 }

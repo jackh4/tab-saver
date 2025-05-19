@@ -1,0 +1,24 @@
+.tab-window-list-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+}
+
+.tab-window-list-header {
+  display: flex;
+  align-items: center;
+  top: 0;
+  position: sticky;
+  background-color: var(--primary-color);
+  z-index: 1;
+}
+
+.tab-window-list-all-checkbox {
+  margin-right: 8px;
+}
+
+.tab-window-list-windows {
+  border: 1px solid var(--primary-color);
+}

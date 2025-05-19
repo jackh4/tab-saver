@@ -1,0 +1,19 @@
+.icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.icon-hover-color {
+  background-color: var(--icon-hover-color);
+}
+
+.icon-delete-hover-color {
+  background-color: var(--delete-icon-hover-color);
+}
+
+.icon-style {
+  object-fit: contain;
+  color: var(--text-color);
+}
