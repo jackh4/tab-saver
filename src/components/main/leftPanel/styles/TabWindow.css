@@ -3,36 +3,41 @@
   flex-direction: column;
 }
 
+/* WINDOW HEADER */
+
 .tab-window-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
 }
 
-.tab-window-title-wrapper {
-  display: flex;
-  align-items: center;
-  flex: 1;
-  min-width: 0;
-  overflow: hidden;
+.tab-window-header:hover {
+  background-color: var(--selection-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.tab-window-header--selected {
+  background-color: var(--selection-color);
 }
 
 .tab-window-title {
   white-space: nowrap;
   overflow: hidden;
+  color: var(--text-color);
 }
 
 .tab-window-dropdown-icon {
-  border: none;
-  font-size: 16px;
-  padding: 0;
-  margin-left: auto;
+  display: flex;
+  color: var(--text-color);
 }
 
-.tab-window-dropdown-icon--hovered {
+.tab-window-dropdown-icon:hover {
+  background-color: var(--hover-color);
+  transition: background-color 0.2s;
   cursor: pointer;
-  background-color: var(--icon-hover-color);
 }
+
+/* LIST OF TABS */
 
 .tab-window-list {
   list-style: none;
@@ -45,22 +50,29 @@
   align-items: center;
 }
 
+.tab-window-list-item:hover {
+  background-color: var(--selection-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.tab-window-list-item--selected {
+  background-color: var(--selection-color);
+}
+
 .tab-window-list-item-icon {
-  height: 16px;
-  width: 16px;
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  size: 1.5rem;
+  object-fit: contain;
+  padding: 4px;
   margin-right: 8px;
+  color: var(--text-color);
 }
 
 .tab-window-list-item-title {
   white-space: nowrap;
   overflow: hidden;
+  color: var(--text-color);
 }
-
-.tab-window-checkbox {
-  align-items: center;
-  margin-right: 8px;
-}
-
-/* .tab-window-checkbox--selected {
-  
-} */

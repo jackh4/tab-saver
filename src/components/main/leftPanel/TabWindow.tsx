@@ -15,12 +15,9 @@ const TabWindow = ({
   toggleTab,
   toggleWindow
 }: TabWindowProps) => {
-  const { title, tabs } = tabWindowData;
-
   const [isCollapsed, setIsCollapsed] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  // const [isHoveredTabIndex, setIsHoveredTabIndex] = useState<number | null>(null);
 
+  const { title, tabs } = tabWindowData;
   const tabIds = tabs.map(tab => tab.tabId);
   const isWindowSelected = tabIds.every(id => selectedTabIds.includes(id)) && tabIds.length > 0;
 
@@ -32,45 +29,38 @@ const TabWindow = ({
 
   return (
     <div className='tab-window-container'>
-      <div className='tab-window-header'>
-        <label className='tab-window-title-wrapper'>
-          <input
-            type='checkbox'
-            checked={isWindowSelected}
-            onChange={onWindowToggle}
-            className='tab-window-checkbox'
-          />
-          <div className='tab-window-title'>Window: {title}</div>
-        </label>
-
-        <button
-          onClick={toggleCollapse}
-          onMouseEnter={() => setIsHovered(true)}
-          onMouseLeave={() => setIsHovered(false)}
-          className={isHovered 
-            ? 'tab-window-dropdown-icon' 
-            : 'tab-window-dropdown-icon tab-window-dropdown-icon--hovered'}
+      <div
+        className={`tab-window-header ${isWindowSelected ? 'tab-window-header--selected' : ''}`}
+        onClick={onWindowToggle}
+      >
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+            toggleCollapse();
+          }}
+          className='tab-window-dropdown-icon'
         >
           <span className='material-symbols-outlined'>
-            {isCollapsed ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}
+            {isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
           </span>
-        </button>
+        </div>
+
+        <div className='tab-window-title'>Window: {title}</div>
       </div>
 
       {!isCollapsed && (
         <ul className='tab-window-list'>
           {tabs.map(({ tabId, favIcon, title }) => (
-            <li key={tabId}>
-              <label className='tab-window-list-item'>
-                <input
-                  type='checkbox'
-                  checked={isTabSelected(tabId)}
-                  onChange={e => toggleTab(tabId, e.target.checked)}
-                  style={{ marginRight: 8 }}
-                />
-                <img src={favIcon} alt='' className='tab-window-list-item-icon' />
-                <div className='tab-window-list-item-title'>{title}</div>
-              </label>
+            <li 
+              key={tabId}
+              className={`
+                tab-window-list-item 
+                ${isTabSelected(tabId) ? 'tab-window-list-item--selected' : ''}
+              `}
+              onClick={() => toggleTab(tabId, isTabSelected(tabId))}
+            >
+              <img className='tab-window-list-item-icon' src={favIcon} alt='' />
+              <div className='tab-window-list-item-title'>{title}</div>
             </li>
           ))}
         </ul>
