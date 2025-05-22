@@ -3,21 +3,21 @@ import './styles/TabWindow.css';
 import { windowTabData } from '../../../types';
 
 type TabWindowProps = {
-  tabWindowData: windowTabData;
+  windowTabData: windowTabData;
   selectedTabIds: string[];
   toggleTab: (tabId: string, isSelected: boolean) => void;
   toggleWindow: (tabIds: string[]) => void;
 };
 
 const TabWindow = ({
-  tabWindowData,
+  windowTabData,
   selectedTabIds,
   toggleTab,
   toggleWindow
 }: TabWindowProps) => {
   const [isCollapsed, setIsCollapsed] = useState(false);
 
-  const { title, tabs } = tabWindowData;
+  const { title, tabs } = windowTabData;
   const tabIds = tabs.map(tab => tab.tabId);
   const isWindowSelected = tabIds.every(id => selectedTabIds.includes(id)) && tabIds.length > 0;
 

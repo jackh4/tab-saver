@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import './styles/RightPanel.css';
 import { tabFolderData } from '../../../types';
 import RightHeader from './RightHeader';
 import TabFolderList from './TabFolderList';
@@ -23,7 +24,7 @@ export default function RightPanel() {
   }, []);
 
   return (
-    <div>
+    <div className='right-panel'>
       <RightHeader/>
       <TabFolderList 
         tabFolders={tabFolders}

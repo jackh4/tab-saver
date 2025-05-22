@@ -39,27 +39,22 @@ const TabWindowList = ({
 
   return (
     <div className='tab-window-list-container'>
-      <label className='tab-window-list-header'>
-        <input
-          type='checkbox'
-          checked={allSelected}
-          onChange={toggleSelectAll}
-          className='tab-window-list-all-checkbox'
-        />
-        <div>Select All</div>
-      </label>
-
-      <div className='tab-window-list-windows'>
-        {windowTabs.map((window) => (
-          <TabWindow
-            key={window.windowId}
-            tabWindowData={window}
-            selectedTabIds={selectedTabIds}
-            toggleTab={toggleTab}
-            toggleWindow={toggleWindow}
-          />
-        ))}
+      <div
+        onClick={toggleSelectAll}
+        className='tab-window-list-selector'
+      >
+        {allSelected ? 'Unselect All' : 'Select All'}
       </div>
+
+      {windowTabs.map((window) => (
+        <TabWindow
+          key={window.windowId}
+          windowTabData={window}
+          selectedTabIds={selectedTabIds}
+          toggleTab={toggleTab}
+          toggleWindow={toggleWindow}
+        />
+      ))}
     </div>
   );
 };

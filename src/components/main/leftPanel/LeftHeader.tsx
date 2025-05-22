@@ -50,15 +50,26 @@ const LeftHeader = ({
     });
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSave();
+    };
+  };
+
   return (
     <div className='left-header-container'>
       <input
         placeholder='Folder Title'
         value={folderTitle}
         onChange={(e) => setFolderTitle(e.target.value)}
+        onKeyDown={handleKeyDown}
+        className='left-header-title-input'
       />
       <button onClick={handleSave}>Save</button>
-      <button>Settings</button>
+
+      <div className='material-symbols-outlined'>
+        settings
+      </div>
     </div>
   );
 };

@@ -1,0 +1,70 @@
+.tab-folder-details-container {
+  display: flex;
+  flex-direction: column;
+}
+
+/* WINDOW HEADER */
+
+.tab-folder-details-header {
+  display: flex;
+  align-items: center;
+}
+
+.tab-folder-details-header:hover {
+  background-color: var(--selection-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.tab-folder-window-title {
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--text-color);
+}
+
+.tab-folder-window-dropdown-icon {
+  display: flex;
+  color: var(--text-color);
+}
+
+.tab-folder-window-dropdown-icon:hover {
+  background-color: var(--hover-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+/* LIST OF TABS */
+
+.tab-window-list {
+  list-style: none;
+  margin: 0;
+  padding-left: 12px;
+}
+
+.tab-window-list-item {
+  display: flex;
+  align-items: center;
+}
+
+.tab-window-list-item:hover {
+  background-color: var(--selection-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.tab-window-list-item-icon {
+  font-size: 1.5rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  size: 1.5rem;
+  object-fit: contain;
+  padding: 4px;
+  margin-right: 8px;
+  color: var(--text-color);
+}
+
+.tab-window-list-item-title {
+  white-space: nowrap;
+  overflow: hidden;
+  color: var(--text-color);
+}

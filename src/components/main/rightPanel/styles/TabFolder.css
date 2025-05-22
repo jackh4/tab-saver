@@ -1,0 +1,20 @@
+.tab-folder-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border-color);
+  margin: 8px 8px 0px 8px;
+}
+
+.tab-folder-metadata-header {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.tab-folder-title {
+  color: var(--label-color-1);
+}
+
+.tab-folder-date {
+  color: var(--label-color-2);
+}

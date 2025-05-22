@@ -1,3 +1,4 @@
+import './styles/TabFolderList.css';
 import { tabFolderData } from '../../../types';
 import TabFolder from './TabFolder';
 
@@ -15,7 +16,7 @@ const TabFolderList = ({
   // Delete folder
 
   return (
-    <div>
+    <div className='tab-folder-list-container'>
       {tabFolders.length === 0 ? (
         <p>No tab folder saved</p>
       ) : (

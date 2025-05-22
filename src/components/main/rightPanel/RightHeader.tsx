@@ -1,3 +1,5 @@
+import './styles/RightHeader.css';
+
 export default function RightHeader() {
   // implement search for folder by title
   

@@ -1,4 +1,7 @@
+import { useState } from 'react';
+import './styles/TabFolder.css';
 import { tabFolderData } from '../../../types';
+import TabFolderDetails from './TabFolderDetails';
 
 type TabFolderProps = {
   tabFolder: tabFolderData;
@@ -7,6 +10,10 @@ type TabFolderProps = {
 const TabFolder = ({
   tabFolder,
 }: TabFolderProps) => {
+  // const [isEditing, setIsEditing] = useState(false);
+  const [isCollapsed, setIsCollapsed] = useState(true);
+
+  const toggleCollapse = () => setIsCollapsed(prev => !prev); 
 
   /*
   Display feature
@@ -30,21 +37,53 @@ const TabFolder = ({
   - Edit window title
   */
 
+  const getPrettyDate = (date: string) => {
+    return new Date(date).toLocaleString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true,
+    });
+  };
+
   return (
-    <div>
-      {tabFolder.title}
-      <p>Created on {tabFolder.date}</p>
-      {tabFolder.windows.map((window) => (
-        <div key={window.windowId}>
-          <strong>{window.title}</strong>
-          <ul>
-            {window.tabs.map((tab) => (
-              <li key={tab.tabId}>
-                <a href={tab.url} target='_blank' rel='noopener noreferrer'>{tab.title}</a>
-              </li>
-            ))}
-          </ul>
+    <div className='tab-folder-container'>
+      <div className='tab-folder-metadata-header'>
+        <div 
+          className='tab-folder-title'
+        >
+          {tabFolder.title}
         </div>
+        <div className='tab-folder-date'>{getPrettyDate(tabFolder.date)}</div>
+      </div>
+
+      <div
+        onClick={(e) => {
+          e.stopPropagation();
+          toggleCollapse();
+        }}
+        className='tab-folder-dropdown-icon'
+      >
+        <span className='material-symbols-outlined'>
+          {isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
+        </span>
+      </div>
+
+      {/* 
+      Display
+      - Tab folder title
+      - Created at date + time
+
+      Funtionality
+      - Dropdown button, 
+      - Edit tab folder title button or title clickable
+      - Delete tab folder button 
+      - Open all windows button
+      */}
+      {!isCollapsed && tabFolder.windows.map((window) => (
+        <TabFolderDetails key={window.windowId} tabWindowData={window}/>
       ))}
     </div>
   );
