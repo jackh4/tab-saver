@@ -60,7 +60,7 @@ const TabFolderDetails = ({
         )}
       </div>
     </DropZone>
-  )
+  );
 };
 
 export default TabFolderDetails;

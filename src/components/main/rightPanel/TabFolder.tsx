@@ -40,8 +40,8 @@ const TabFolder = ({
   */
 
   const canDrop = (item: DragItem) => {
-      return !!item && item.type === 'window';
-    };
+    return !!item && item.type === 'window';
+  };
   
   const onDrop = (item: DragItem) => {
     if (item && item.type === 'window') {
