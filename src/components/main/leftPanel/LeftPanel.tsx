@@ -2,7 +2,7 @@ import './styles/LeftPanel.css';
 import { useState, useEffect } from 'react';
 import LeftHeader from './LeftHeader';
 import TabWindowList from './TabWindowList';
-import { windowTabData } from '../../../types';
+import { tabData, windowTabData } from '../../../types';
 
 export default function LeftPanel() {
   const [windowTabs, setWindowTabs] = useState<windowTabData[]>([]);
@@ -25,7 +25,8 @@ export default function LeftPanel() {
       );
 
       const result: windowTabData[] = allWindows.map((win) => {
-        const tabs = (win.tabs || []).map((tab) => ({
+        const tabs: tabData[] = (win.tabs || []).map((tab) => ({
+          type: 'tab',
           tabId: String(tab.id),
           favIcon: tab.favIconUrl || '',
           title: tab.title || '',
@@ -33,6 +34,7 @@ export default function LeftPanel() {
         }));
 
         return {
+          type: 'window',
           windowId: String(win.id),
           title: tabs[0]?.title || `Window ${win.id}`,
           tabs,

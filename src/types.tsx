@@ -1,4 +1,5 @@
 export interface tabData {
+  type: 'tab';
   tabId: string;
   favIcon: string;
   title: string;
@@ -6,6 +7,7 @@ export interface tabData {
 }
 
 export interface windowTabData {
+  type: 'window';
   windowId: string;
   title: string;
   tabs: tabData[];

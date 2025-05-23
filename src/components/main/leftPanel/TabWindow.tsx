@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import './styles/TabWindow.css';
 import { windowTabData } from '../../../types';
+import DraggableItem from '../../common/DraggableItem';
 
 type TabWindowProps = {
   windowTabData: windowTabData;
   selectedTabIds: string[];
-  toggleTab: (tabId: string, isSelected: boolean) => void;
+  toggleTab: (tabId: string) => void;
   toggleWindow: (tabIds: string[]) => void;
 };
 
@@ -29,39 +30,43 @@ const TabWindow = ({
 
   return (
     <div className='tab-window-container'>
-      <div
-        className={`tab-window-header ${isWindowSelected ? 'tab-window-header--selected' : ''}`}
-        onClick={onWindowToggle}
-      >
+      <DraggableItem item={windowTabData}>
         <div
-          onClick={(e) => {
-            e.stopPropagation();
-            toggleCollapse();
-          }}
-          className='tab-window-dropdown-icon'
+          className={`tab-window-header ${isWindowSelected ? 'tab-window-header--selected' : ''}`}
+          onClick={onWindowToggle}
         >
-          <span className='material-symbols-outlined'>
-            {isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
-          </span>
-        </div>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleCollapse();
+            }}
+            className='tab-window-dropdown-icon'
+          >
+            <span className='material-symbols-outlined'>
+              {isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
+            </span>
+          </div>
 
-        <div className='tab-window-title'>Window: {title}</div>
-      </div>
+          <div className='tab-window-title'>Window: {title}</div>
+        </div>
+      </DraggableItem>
 
       {!isCollapsed && (
         <ul className='tab-window-list'>
-          {tabs.map(({ tabId, favIcon, title }) => (
-            <li 
-              key={tabId}
-              className={`
-                tab-window-list-item 
-                ${isTabSelected(tabId) ? 'tab-window-list-item--selected' : ''}
-              `}
-              onClick={() => toggleTab(tabId, isTabSelected(tabId))}
-            >
-              <img className='tab-window-list-item-icon' src={favIcon} alt='' />
-              <div className='tab-window-list-item-title'>{title}</div>
-            </li>
+          {tabs.map((tab) => (
+            <DraggableItem key={tab.tabId} item={tab}>
+              <li 
+                key={tab.tabId}
+                className={`
+                  tab-window-list-item 
+                  ${isTabSelected(tab.tabId) ? 'tab-window-list-item--selected' : ''}
+                `}
+                onClick={() => toggleTab(tab.tabId)}
+              >
+                <img className='tab-window-list-item-icon' src={tab.favIcon} alt='' />
+                <div className='tab-window-list-item-title'>{tab.title}</div>
+              </li>
+            </DraggableItem>
           ))}
         </ul>
       )}

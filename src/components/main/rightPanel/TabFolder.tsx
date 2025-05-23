@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import './styles/TabFolder.css';
 import { tabFolderData } from '../../../types';
+import { DragItem } from '../../../contexts/DragContext';
 import TabFolderDetails from './TabFolderDetails';
+import DropZone from '../../common/DropZone';
 
 type TabFolderProps = {
   tabFolder: tabFolderData;
@@ -37,6 +39,16 @@ const TabFolder = ({
   - Edit window title
   */
 
+  const canDrop = (item: DragItem) => {
+      return !!item && item.type === 'window';
+    };
+  
+  const onDrop = (item: DragItem) => {
+    if (item && item.type === 'window') {
+      console.log(`Dropped window "${item.title}" (ID: ${item.windowId}) into folder "${tabFolder.tabFolderId}"`);
+    }
+  };
+
   const getPrettyDate = (date: string) => {
     return new Date(date).toLocaleString('en-US', {
       year: 'numeric',
@@ -49,43 +61,44 @@ const TabFolder = ({
   };
 
   return (
-    <div className='tab-folder-container'>
-      <div className='tab-folder-metadata-header'>
-        <div 
-          className='tab-folder-title'
-        >
-          {tabFolder.title}
+    <DropZone onDrop={onDrop} canDrop={canDrop}>
+      <div className='tab-folder-container'>
+        <div className='tab-folder-metadata-header'>
+          <div 
+            className='tab-folder-title'
+          >
+            {tabFolder.title}
+          </div>
+          <div className='tab-folder-date'>{getPrettyDate(tabFolder.date)}</div>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleCollapse();
+            }}
+            className='tab-folder-dropdown-icon'
+          >
+            <span className='material-symbols-outlined'>
+              {isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
+            </span>
+          </div>
         </div>
-        <div className='tab-folder-date'>{getPrettyDate(tabFolder.date)}</div>
+
+        {/* 
+        Display
+        - Tab folder title
+        - Created at date + time
+
+        Funtionality
+        - Dropdown button, 
+        - Edit tab folder title button or title clickable
+        - Delete tab folder button 
+        - Open all windows button
+        */}
+        {!isCollapsed && tabFolder.windows.map((window) => (
+          <TabFolderDetails key={window.windowId} tabWindowData={window}/>
+        ))}
       </div>
-
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          toggleCollapse();
-        }}
-        className='tab-folder-dropdown-icon'
-      >
-        <span className='material-symbols-outlined'>
-          {isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
-        </span>
-      </div>
-
-      {/* 
-      Display
-      - Tab folder title
-      - Created at date + time
-
-      Funtionality
-      - Dropdown button, 
-      - Edit tab folder title button or title clickable
-      - Delete tab folder button 
-      - Open all windows button
-      */}
-      {!isCollapsed && tabFolder.windows.map((window) => (
-        <TabFolderDetails key={window.windowId} tabWindowData={window}/>
-      ))}
-    </div>
+    </DropZone>
   );
 };
 
