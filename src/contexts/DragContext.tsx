@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 import { tabData, windowTabData } from '../types';
 
 export type DragItem = 
@@ -13,7 +13,7 @@ interface DragContextProps {
 
 const DragContext = createContext<DragContextProps | undefined>(undefined);
 
-export const DragProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export const DragProvider = ({ children }: { children: ReactNode }) => {
   const [dragItem, setDragItem] = useState<DragItem>(null);
 
   return (

@@ -13,8 +13,50 @@
 
 .tab-folder-title {
   color: var(--label-color-1);
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tab-folder-title-edit {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-color);
+  color: var(--label-color-1);
+  font-size: 16px;
+  padding: 0;
+  flex-grow: 1;
+}
+
+.tab-folder-title-edit:focus {
+  outline: none;
 }
 
 .tab-folder-date {
   color: var(--label-color-2);
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tab-folder-dropdown-icon {
+  display: flex;
+  color: var(--text-color);
+}
+
+.tab-folder-dropdown-icon:hover {
+  background-color: var(--hover-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.tab-folder-delete-icon {
+  display: flex;
+  color: var(--text-color);
+}
+
+.tab-folder-delete-icon:hover {
+  background-color: var(--delete-icon-hover-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
 }

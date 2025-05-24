@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import './styles/LeftHeader.css';
 import { tabFolderData, windowTabData } from '../../../types';
+import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 
 type LeftHeaderProps = {
   windowTabs: windowTabData[];
@@ -12,6 +13,8 @@ const LeftHeader = ({
   selectedTabIds 
 }: LeftHeaderProps) => {
   const [folderTitle, setFolderTitle] = useState('');
+
+  const dispatch = useTabFolderDispatch();
 
   const handleSave = () => {
     if (!folderTitle.trim()) {
@@ -36,18 +39,8 @@ const LeftHeader = ({
       windows: selectedWindows,
     };
 
-    chrome.storage.local.get(['tabFolders'], (result) => {
-      const existingFolders: tabFolderData[] = Array.isArray(result.tabFolders)
-        ? result.tabFolders
-        : [];
-
-      const updatedFolders = [...existingFolders, newFolder];
-
-      chrome.storage.local.set({ tabFolders: updatedFolders }, () => {
-        console.log('Saved tab folder to chrome.storage.local:', newFolder);
-        setFolderTitle('');
-      });
-    });
+    dispatch({ type: 'ADD_FOLDER', payload: newFolder });
+    setFolderTitle('');
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

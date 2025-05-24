@@ -1,0 +1,14 @@
+.right-header-container {
+
+}
+
+.right-header-search-input {
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  height: 24px;
+}
+
+.right-header-search-input:focus {
+  outline: none;
+}

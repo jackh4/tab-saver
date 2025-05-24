@@ -1,11 +1,18 @@
+import { useState } from 'react';
 import './styles/RightHeader.css';
 
 export default function RightHeader() {
-  // implement search for folder by title
+  const [searchText, setSearchText] = useState('');
   
   return (
-    <div>
-      
+    <div className='right-header-container'>
+      <input
+        value={searchText}
+        placeholder='Search by folder title'
+        onChange={(e) => setSearchText(e.target.value)}
+        className='right-header-search-input'
+      >
+      </input>
     </div>
   );
 }

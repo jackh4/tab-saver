@@ -2,20 +2,72 @@ import { useState } from 'react';
 import './styles/TabFolderDetails.css';
 import { windowTabData } from '../../../types';
 import { DragItem } from '../../../contexts/DragContext';
+// import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 import DropZone from '../../common/DropZone';
 
 type TabFolderDetailsProps = {
+  tabFolderId: string;
   tabWindowData: windowTabData;
 }
 
 const TabFolderDetails = ({
+  // tabFolderId,
   tabWindowData,
 }: TabFolderDetailsProps) => {
+  const {  title, tabs } = tabWindowData;
+  // const dispatch = useTabFolderDispatch();
+
+  // const [newTitle, setNewTitle] = useState(tabWindowData.title);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => setIsCollapsed(prev => !prev); 
 
-  const { title, tabs } = tabWindowData;
+  /*
+  OPEN LOGIC:
+  - Open window
+  - Open tab
+
+  FROM THIS COMPONENT STATE LOGIC:
+  Edit
+  - Edit window title
+  Delete
+  - Delete window
+  - Delete tab
+  Add
+  - Add tab to window
+  */
+
+  // const handleEditWindowTitle = () => {
+  //   dispatch({ 
+  //     type: 'UPDATE_WINDOW_TITLE', 
+  //     payload: { folderId: tabFolderId, windowId: windowId, newTitle: newTitle } 
+  //   });
+  // };
+
+  // const handleDeleteWindow = () => {
+  //   dispatch({
+  //     type: 'DELETE_WINDOW',
+  //     payload: { folderId: tabFolderId, windowId: windowId }
+  //   });
+  // };
+
+  // const handleDeleteTab = (tabId: string) => {
+  //   dispatch({
+  //     type: 'DELETE_TAB_FROM_WINDOW',
+  //     payload: { folderId: tabFolderId, windowId: windowId, tabId: tabId }
+  //   });
+  // }
+
+  // const handleAddTab = (tab: tabData) => {
+  //   dispatch({
+  //     type: 'ADD_TAB_TO_WINDOW',
+  //     payload: { folderId: tabFolderId, windowId: windowId, tab: tab }
+  //   });
+  // }
+
+  // const handleTabClick = () => {
+
+  // }
 
   const canDrop = (item: DragItem) => {
     return !!item && item.type === 'tab';

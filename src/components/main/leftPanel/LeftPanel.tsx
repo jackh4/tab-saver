@@ -41,7 +41,6 @@ export default function LeftPanel() {
         };
       });
       
-
       setWindowTabs(result);
     };
 

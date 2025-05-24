@@ -21,9 +21,9 @@
 }
 
 .tab-window-title {
+  color: var(--text-color);
   white-space: nowrap;
   overflow: hidden;
-  color: var(--text-color);
 }
 
 .tab-window-dropdown-icon {
@@ -72,7 +72,7 @@
 }
 
 .tab-window-list-item-title {
+  color: var(--text-color);
   white-space: nowrap;
   overflow: hidden;
-  color: var(--text-color);
 }

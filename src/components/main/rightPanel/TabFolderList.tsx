@@ -9,16 +9,12 @@ type TabFolderListProps = {
 const TabFolderList = ({ 
   tabFolders,
 }: TabFolderListProps) => {
-  // Edit folder details (title)
-
-  // Open all tabs in folder
-
-  // Delete folder
-
   return (
     <div className='tab-folder-list-container'>
       {tabFolders.length === 0 ? (
-        <p>No tab folder saved</p>
+        <div className='tab-folder-list-empty'>
+          No tab folder saved
+        </div>
       ) : (
         tabFolders.map((tabFolder) => (
           <TabFolder
