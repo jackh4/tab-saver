@@ -1,10 +1,10 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { useDragContext } from '../../contexts/DragContext';
 import { tabData, windowTabData } from '../../types';
 
 interface DraggableItemProps {
   item: tabData | windowTabData;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const DraggableItem = ({ 

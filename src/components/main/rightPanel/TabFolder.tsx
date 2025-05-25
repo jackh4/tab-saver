@@ -160,9 +160,18 @@ const TabFolder = ({
           />
         </div>
 
-        {!isCollapsed && tabFolder.windows.map((window) => (
-          <TabFolderDetails key={window.windowId} tabFolderId={tabFolderId} tabWindowData={window}/>
-        ))}
+        {!isCollapsed && (
+          <>
+            <div className='divider' />
+            {tabFolder.windows.map((window) => (
+              <TabFolderDetails 
+                key={window.windowId} 
+                tabFolderId={tabFolderId} 
+                tabWindowData={window} 
+              />
+            ))}
+          </>
+        )}
       </div>
     </DropZone>
   );

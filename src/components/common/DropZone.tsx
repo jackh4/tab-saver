@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useState, ReactNode, DragEvent } from 'react';
+import './styles/DropZone.css'
 import { DragItem, useDragContext } from '../../contexts/DragContext';
 
 interface DropZoneProps {
   onDrop: (item: DragItem) => void;
   canDrop: (type: DragItem) => boolean;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 const DropZone = ({ 
@@ -13,11 +14,11 @@ const DropZone = ({
   children 
 }: DropZoneProps) => {
   const { dragItem, setDragItem } = useDragContext();
-  const [ isValidDrop, setIsValidDrop] = useState<boolean>(false);
+  const [isValidDrop, setIsValidDrop] = useState<boolean>(false);
 
-  const handleDragOver = (e: React.DragEvent) => {
+  const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
-    setIsValidDrop(canDrop(dragItem));
+    setIsValidDrop(canDrop(dragItem))
   };
 
   const handleDragLeave = () => {
@@ -28,6 +29,7 @@ const DropZone = ({
     if (dragItem) {
       onDrop(dragItem);
       setDragItem(null);
+      setIsValidDrop(false);
     }
   };
 

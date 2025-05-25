@@ -106,11 +106,11 @@ const TabFolderDetails = ({
           <div className='tab-folder-window-title'>Window: {title}</div>
 
           {/* ADD EDIT WINDOW TITLE ICON */}
-          
+
           <div className='delete-window-button'>
             <Icon
               materialIconName='close'
-              tooltipText='Delete tab'
+              tooltipText='Delete window'
               onClick={(e) => {
                 e.stopPropagation();
                 handleDeleteWindow();
