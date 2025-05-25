@@ -158,40 +158,6 @@ const TabFolder = ({
             }}
             varHoverColor='--delete-icon-hover-color'
           />
-
-          {/* <div
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleCollapse();
-            }}
-            className='tab-folder-dropdown-icon'
-          >
-            <span className='material-symbols-outlined'>
-              {isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
-            </span>
-          </div>
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              handleOpenFolder(tabFolder.windows);
-            }}
-            className=''
-          >
-            <span className='material-symbols-outlined'>
-              open_in_new
-            </span>
-          </div>
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDeleteFolder();
-            }}
-            className='tab-folder-delete-icon'
-          >
-            <span className='material-symbols-outlined'>
-              close
-            </span>
-          </div> */}
         </div>
 
         {!isCollapsed && tabFolder.windows.map((window) => (

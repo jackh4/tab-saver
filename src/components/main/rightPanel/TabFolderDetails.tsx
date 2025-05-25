@@ -4,6 +4,7 @@ import { tabData, windowTabData } from '../../../types';
 import { DragItem } from '../../../contexts/DragContext';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 import DropZone from '../../common/DropZone';
+import Icon from '../../common/Icon';
 
 type TabFolderDetailsProps = {
   tabFolderId: string;
@@ -94,31 +95,28 @@ const TabFolderDetails = ({
           onClick={() => handleWindowClick(tabWindowData.tabs)}
           className='tab-folder-details-header'
         >
-          <div
+          <Icon
+            materialIconName={isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
+            tooltipText={isCollapsed ? 'Expand' : 'Collapse'}
             onClick={(e) => {
               e.stopPropagation();
               toggleCollapse();
             }}
-            className='tab-folder-window-dropdown-icon'
-          >
-            <span className='material-symbols-outlined'>
-              {isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
-            </span>
-          </div>
-
+          />
           <div className='tab-folder-window-title'>Window: {title}</div>
 
           {/* ADD EDIT WINDOW TITLE ICON */}
-          <div
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDeleteWindow();
-            }}
-            className='tab-folder-details-delete-icon'
-          >
-            <span className='material-symbols-outlined'>
-              close
-            </span>
+          
+          <div className='delete-window-button'>
+            <Icon
+              materialIconName='close'
+              tooltipText='Delete tab'
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeleteWindow();
+              }}
+              varHoverColor='--delete-icon-hover-color'
+            />
           </div>
         </div>
 
@@ -132,16 +130,16 @@ const TabFolderDetails = ({
               >
                 <img className='tab-window-list-item-icon' src={favIcon} alt=''/>
                 <div className='tab-window-list-item-title'>{title}</div>
-                <div
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleDeleteTab(tabId);
-                  }}
-                  className='delete-tab-button'
-                >
-                  <span className='material-symbols-outlined'>
-                    close
-                  </span>
+                <div className='delete-tab-button'>
+                  <Icon
+                    materialIconName='close'
+                    tooltipText='Delete tab'
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleDeleteTab(tabId);
+                    }}
+                    varHoverColor='--delete-icon-hover-color'
+                  />
                 </div>
               </li>
             ))}

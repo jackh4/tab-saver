@@ -23,27 +23,24 @@
   align-items: center;
 }
 
+.tab-folder-details-header .delete-window-button {
+  display: none;
+}
+
 .tab-folder-details-header:hover {
   background-color: var(--selection-color);
   transition: background-color 0.2s;
   cursor: pointer;
 }
 
+.tab-folder-details-header:hover .delete-window-button {
+  display: flex;
+}
+
 .tab-folder-window-title {
   white-space: nowrap;
   overflow: hidden;
   color: var(--text-color);
-}
-
-.tab-folder-window-dropdown-icon {
-  display: flex;
-  color: var(--text-color);
-}
-
-.tab-folder-window-dropdown-icon:hover {
-  background-color: var(--hover-color);
-  transition: background-color 0.2s;
-  cursor: pointer;
 }
 
 /* LIST OF TABS */
@@ -72,12 +69,6 @@
 
 .tab-window-list-item:hover .delete-tab-button {
   display: flex;
-}
-
-.tab-window-list-item:hover .delete-tab-button:hover {
-  background-color: var(--delete-icon-hover-color);
-  transition: background-color 0.2s;
-  cursor: pointer;
 }
 
 .tab-window-list-item-icon {
