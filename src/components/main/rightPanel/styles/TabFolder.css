@@ -15,6 +15,20 @@
   width: 100%;
 }
 
+.tab-folder-metadata-header .edit-title-button {
+  display: none;
+}
+
+.tab-folder-metadata-header:hover .edit-title-button {
+  display: flex;
+}
+
+.tab-folder-title-container {
+  display: flex;
+  justify-content: space-between;
+  height: 24px;
+}
+
 .tab-folder-title {
   color: var(--label-color-1);
   font-size: 16px;
@@ -43,6 +57,13 @@
   padding-left: 4px;
   white-space: nowrap;
   overflow: hidden;
+  user-select: none;
+}
+
+.tab-folder-action-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 }
 
 .tab-folder-dropdown-icon {

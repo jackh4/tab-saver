@@ -1,19 +1,8 @@
+/* TAB FOLDER CONTAINER */
+
 .tab-folder-details-container {
   display: flex;
   flex-direction: column;
-}
-
-/* ICON CSS */
-
-.tab-folder-details-delete-icon {
-  display: flex;
-  color: var(--text-color);
-}
-
-.tab-folder-details-delete-icon:hover {
-  background-color: var(--delete-icon-hover-color);
-  transition: background-color 0.2s;
-  cursor: pointer;
 }
 
 /* WINDOW HEADER */
@@ -21,10 +10,7 @@
 .tab-folder-details-header {
   display: flex;
   align-items: center;
-}
-
-.tab-folder-details-header .delete-window-button {
-  display: none;
+  width: 100%;
 }
 
 .tab-folder-details-header:hover {
@@ -33,8 +19,21 @@
   cursor: pointer;
 }
 
-.tab-folder-details-header:hover .delete-window-button {
+.tab-folder-details-header .window-action-buttons {
+  display: none;
+}
+
+.tab-folder-details-header:hover .window-action-buttons {
   display: flex;
+  flex-direction: row;
+}
+
+.tab-folder-window-title-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }
 
 .tab-folder-window-title {
@@ -43,35 +42,45 @@
   color: var(--text-color);
 }
 
-/* LIST OF TABS */
+.tab-folder-window-title-edit {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-color);
+  background-color: var(--primary-color);
+  color: var(--label-color-1);
+  font-size: 12px;
+  padding: 3px 0px 3px 4px;
+  flex-grow: 1;
+}
 
-.tab-window-list {
+.tab-folder-window-title-edit:focus {
+  outline: none;
+}
+
+/* TAB LIST */
+
+.tab-folder-window-list {
   list-style: none;
   margin: 0;
   padding-left: 12px;
 }
 
-.tab-window-list-item {
+.tab-folder-window-list-item {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
+  overflow: hidden;
 }
 
-.tab-window-list-item .delete-tab-button {
-  display: none;
-}
-
-.tab-window-list-item:hover {
-  background-color: var(--selection-color);
-  transition: background-color 0.2s;
-  cursor: pointer;
-}
-
-.tab-window-list-item:hover .delete-tab-button {
+.tab-folder-window-tab-data-container {
   display: flex;
+  align-items: center;
+  flex-grow: 1;
+  min-width: 0;
 }
 
-.tab-window-list-item-icon {
+.tab-folder-window-list-item-icon {
   font-size: 1.5rem;
   width: 1.5rem;
   height: 1.5rem;
@@ -82,8 +91,22 @@
   color: var(--text-color);
 }
 
-.tab-window-list-item-title {
+.tab-folder-window-list-item-title {
   white-space: nowrap;
   overflow: hidden;
   color: var(--text-color);
+}
+
+.tab-folder-window-list-item:hover {
+  background-color: var(--selection-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.tab-folder-window-list-item .delete-tab-button {
+  display: none;
+}
+
+.tab-folder-window-list-item:hover .delete-tab-button {
+  display: flex;
 }

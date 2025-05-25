@@ -22,6 +22,7 @@ const TabFolder = ({
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => setIsCollapsed(prev => !prev); 
+  const toggleIsEditing = () => setIsEditing(prev => !prev);
 
   const handleEditFolderTitle = (newTitle: string) => {
     dispatch({ 
@@ -111,15 +112,27 @@ const TabFolder = ({
   };
 
   return (
-    <DropZone onDrop={onDrop} canDrop={canDrop}>
-      <div className='tab-folder-container'>
+    <div className='tab-folder-container'>
+      <DropZone onDrop={onDrop} canDrop={canDrop}>
         <div className='tab-folder-metadata-header'>
           {!isEditing ? (
-            <div 
-              onClick={handleTitleClick}
-              className='tab-folder-title'
-            >
-              {tabFolder.title}
+            <div className='tab-folder-title-container'>
+              <div 
+                onClick={handleTitleClick}
+                className='tab-folder-title'
+              >
+                {folderTitle}
+              </div>
+              <div className='edit-title-button'>
+                <Icon
+                  materialIconName='edit'
+                  tooltipText='Rename folder'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleIsEditing();
+                  }}
+                />
+              </div>
             </div>
           ) : (
             <input
@@ -133,31 +146,33 @@ const TabFolder = ({
           )}
           <div className='tab-folder-date'>{getPrettyDate(tabFolder.date)}</div>
 
-          <Icon
-            materialIconName={isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
-            tooltipText={isCollapsed ? 'Expand' : 'Collapse'}
-            onClick={(e) => {
-              e.stopPropagation();
-              toggleCollapse();
-            }}
-          />
-          <Icon
-            materialIconName='open_in_new'
-            tooltipText='Open all in new window'
-            onClick={(e) => {
-              e.stopPropagation();
-              handleOpenFolder(tabFolder.windows);
-            }}
-          />
-          <Icon
-            materialIconName='close'
-            tooltipText='Delete tab folder'
-            onClick={(e) => {
-              e.stopPropagation();
-              handleDeleteFolder();
-            }}
-            varHoverColor='--delete-icon-hover-color'
-          />
+          <div className='tab-folder-action-container'>
+            <Icon
+              materialIconName={isCollapsed ? 'keyboard_arrow_up' : 'keyboard_arrow_down'}
+              tooltipText={isCollapsed ? 'Expand' : 'Collapse'}
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleCollapse();
+              }}
+            />
+            <Icon
+              materialIconName='open_in_new'
+              tooltipText='Open all in new window'
+              onClick={(e) => {
+                e.stopPropagation();
+                handleOpenFolder(tabFolder.windows);
+              }}
+            />
+            <Icon
+              materialIconName='close'
+              tooltipText='Delete tab folder'
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDeleteFolder();
+              }}
+              varHoverColor='--delete-icon-hover-color'
+            />
+          </div>
         </div>
 
         {!isCollapsed && (
@@ -172,8 +187,8 @@ const TabFolder = ({
             ))}
           </>
         )}
-      </div>
-    </DropZone>
+      </DropZone>
+    </div>
   );
 };
 

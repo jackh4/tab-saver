@@ -15,20 +15,22 @@ const TabFolderDetails = ({
   tabFolderId,
   tabWindowData,
 }: TabFolderDetailsProps) => {
-  const { windowId, title, tabs } = tabWindowData;
+  const { windowId, tabs } = tabWindowData;
   const dispatch = useTabFolderDispatch();
 
-  // const [newTitle, setNewTitle] = useState(tabWindowData.title);
+  const [windowTitle, setWindowTitle] = useState(tabWindowData.title);
+  const [isEditing, setIsEditing] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
 
   const toggleCollapse = () => setIsCollapsed(prev => !prev); 
+  const toggleIsEditing = () => setIsEditing(prev => !prev); 
 
-  // const handleEditWindowTitle = () => {
-  //   dispatch({ 
-  //     type: 'UPDATE_WINDOW_TITLE', 
-  //     payload: { folderId: tabFolderId, windowId: windowId, newTitle: newTitle } 
-  //   });
-  // };
+  const handleEditWindowTitle = (windowTitle: string) => {
+    dispatch({ 
+      type: 'UPDATE_WINDOW_TITLE', 
+      payload: { folderId: tabFolderId, windowId: windowId, newTitle: windowTitle } 
+    });
+  };
 
   const handleDeleteWindow = () => {
     dispatch({
@@ -60,6 +62,23 @@ const TabFolderDetails = ({
       console.log(`Dropped tab "${item.title}" (ID: ${item.tabId}) into window "${tabWindowData.windowId}"`);
       handleAddTab(item);
     }
+  };
+
+  const handleBlur = () => {
+    setIsEditing(false);
+    if (tabWindowData.title !== windowTitle) {
+      handleEditWindowTitle(windowTitle);
+    }
+  };
+
+  const handleKeyDownOnTitle = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Enter') {
+      handleBlur();
+    }
+  };
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWindowTitle(e.target.value);
   };
 
   const handleTabClick = (url: string) => {
@@ -103,33 +122,54 @@ const TabFolderDetails = ({
               toggleCollapse();
             }}
           />
-          <div className='tab-folder-window-title'>Window: {title}</div>
 
-          {/* ADD EDIT WINDOW TITLE ICON */}
-
-          <div className='delete-window-button'>
-            <Icon
-              materialIconName='close'
-              tooltipText='Delete window'
-              onClick={(e) => {
-                e.stopPropagation();
-                handleDeleteWindow();
-              }}
-              varHoverColor='--delete-icon-hover-color'
+          {!isEditing ? (
+            <div className='tab-folder-window-title-container'>
+              <div className='tab-folder-window-title'>Window: {windowTitle}</div>
+              <div className='window-action-buttons'>
+                <Icon
+                  materialIconName='edit'
+                  tooltipText='Rename window'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    toggleIsEditing();
+                  }}
+                />
+                <Icon
+                  materialIconName='close'
+                  tooltipText='Delete window'
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleDeleteWindow();
+                  }}
+                  varHoverColor='--delete-icon-hover-color'
+                />
+              </div>
+            </div>
+          ) : (
+            <input
+              value={windowTitle}
+              onBlur={handleBlur}
+              onChange={handleTitleChange}
+              onKeyDown={(e) => handleKeyDownOnTitle(e)}
+              autoFocus
+              className='tab-folder-window-title-edit'
             />
-          </div>
+          )}
         </div>
 
         {!isCollapsed && (
-          <ul className='tab-window-list'>
+          <ul className='tab-folder-window-list'>
             {tabs.map(({ tabId, favIcon, title, url }, index) => (
               <li 
                 key={index} 
                 onClick={() => handleTabClick(url)}
-                className='tab-window-list-item'
+                className='tab-folder-window-list-item'
               >
-                <img className='tab-window-list-item-icon' src={favIcon} alt=''/>
-                <div className='tab-window-list-item-title'>{title}</div>
+                <div className='tab-folder-window-tab-data-container'>
+                  <img className='tab-folder-window-list-item-icon' src={favIcon} alt=''/>
+                  <div className='tab-folder-window-list-item-title'>{title}</div>
+                </div>
                 <div className='delete-tab-button'>
                   <Icon
                     materialIconName='close'
