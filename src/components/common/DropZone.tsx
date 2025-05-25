@@ -1,5 +1,5 @@
 import { useState, ReactNode, DragEvent } from 'react';
-import './styles/DropZone.css'
+import './styles/DropZone.css';
 import { DragItem, useDragContext } from '../../contexts/DragContext';
 
 interface DropZoneProps {
@@ -18,7 +18,7 @@ const DropZone = ({
 
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault();
-    setIsValidDrop(canDrop(dragItem))
+    setIsValidDrop(canDrop(dragItem));
   };
 
   const handleDragLeave = () => {
