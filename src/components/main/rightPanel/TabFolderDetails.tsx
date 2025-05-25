@@ -56,14 +56,14 @@ const TabFolderDetails = ({
       type: 'DELETE_TAB_FROM_WINDOW',
       payload: { folderId: tabFolderId, windowId: windowId, tabId: tabId }
     });
-  }
+  };
 
   const handleAddTab = (tab: tabData) => {
     dispatch({
       type: 'ADD_TAB_TO_WINDOW',
       payload: { folderId: tabFolderId, windowId: windowId, tab: tab }
     });
-  }
+  };
 
   const canDrop = (item: DragItem) => {
     return !!item && item.type === 'tab';

@@ -32,15 +32,15 @@ const LeftHeader = ({
             tabId: nanoid(),
           }));
 
-      return filteredTabs.length > 0
-        ? {
+        return filteredTabs.length > 0
+          ? {
             ...window,
             windowId: nanoid(),
             tabs: filteredTabs,
           }
-        : null;
-    })
-    .filter(Boolean) as windowTabData[];
+          : null;
+      })
+      .filter(Boolean) as windowTabData[];
 
     const newFolder: tabFolderData = {
       tabFolderId: nanoid(),
