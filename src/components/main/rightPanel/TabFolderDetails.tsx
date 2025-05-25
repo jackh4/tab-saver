@@ -22,21 +22,6 @@ const TabFolderDetails = ({
 
   const toggleCollapse = () => setIsCollapsed(prev => !prev); 
 
-  /*
-  OPEN LOGIC:
-  - Open window
-  - Open tab
-
-  FROM THIS COMPONENT STATE LOGIC:
-  Edit
-  - Edit window title
-  Delete
-  - Delete window
-  - Delete tab
-  Add
-  - Add tab to window
-  */
-
   // const handleEditWindowTitle = () => {
   //   dispatch({ 
   //     type: 'UPDATE_WINDOW_TITLE', 
@@ -76,19 +61,39 @@ const TabFolderDetails = ({
     }
   };
 
-  // const handleTabClick = () => {
+  const handleTabClick = (url: string) => {
+    try {
+      chrome.tabs.create({ url: url }, () => {
+        if (chrome.runtime.lastError) {
+          console.error(`Chrome API error opening ${url}: `, chrome.runtime.lastError.message);
+        }
+      });
+    } catch (err) {
+      console.error(`Exception while opening ${url}: `, err);
+    }
+  };
 
-  // }
+  const handleWindowClick = (tabs: tabData[]) => {
+    const urls = tabs.map(tab => tab.url);
 
-  // const handleWindowClick = () => {
-  //   // Open all tabs in window
-    
-  // }'
-  
+    try {
+      chrome.windows.create({ url: urls }, () => {
+        if (chrome.runtime.lastError) {
+          console.error(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
+        }
+      });
+    } catch (err) {
+      console.error(`Exception while opening ${urls}: `, err);
+    }
+  };
+
   return (
     <DropZone onDrop={onDrop} canDrop={canDrop}>
       <div className='tab-folder-details-container'>
-        <div className='tab-folder-details-header'>
+        <div 
+          onClick={() => handleWindowClick(tabWindowData.tabs)}
+          className='tab-folder-details-header'
+        >
           <div
             onClick={(e) => {
               e.stopPropagation();
@@ -119,8 +124,12 @@ const TabFolderDetails = ({
 
         {!isCollapsed && (
           <ul className='tab-window-list'>
-            {tabs.map(({ tabId, favIcon, title }, index) => (
-              <li key={index} className='tab-window-list-item'>
+            {tabs.map(({ tabId, favIcon, title, url }, index) => (
+              <li 
+                key={index} 
+                onClick={() => handleTabClick(url)}
+                className='tab-window-list-item'
+              >
                 <img className='tab-window-list-item-icon' src={favIcon} alt=''/>
                 <div className='tab-window-list-item-title'>{title}</div>
                 <div

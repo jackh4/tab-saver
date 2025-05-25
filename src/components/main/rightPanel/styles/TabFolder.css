@@ -14,6 +14,7 @@
 .tab-folder-title {
   color: var(--label-color-1);
   font-size: 16px;
+  padding-left: 4px;
   white-space: nowrap;
   overflow: hidden;
 }
@@ -25,7 +26,7 @@
   background-color: var(--primary-color);
   color: var(--label-color-1);
   font-size: 16px;
-  padding: 0;
+  padding-left: 4px;
   flex-grow: 1;
 }
 
@@ -35,6 +36,7 @@
 
 .tab-folder-date {
   color: var(--label-color-2);
+  padding-left: 4px;
   white-space: nowrap;
   overflow: hidden;
 }

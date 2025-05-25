@@ -5,6 +5,7 @@ import { DragItem } from '../../../contexts/DragContext';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 import TabFolderDetails from './TabFolderDetails';
 import DropZone from '../../common/DropZone';
+import Icon from '../../common/Icon';
 
 type TabFolderProps = {
   tabFolder: tabFolderData;
@@ -21,11 +22,6 @@ const TabFolder = ({
   const [isCollapsed, setIsCollapsed] = useState(true);
 
   const toggleCollapse = () => setIsCollapsed(prev => !prev); 
-
-  /*
-  OPEN LOGIC:
-  - Open all tab folder
-  */
 
   const handleEditFolderTitle = (newTitle: string) => {
     dispatch({ 
@@ -91,6 +87,29 @@ const TabFolder = ({
     });
   };
 
+  /*
+  Extra safety steps
+
+  Validate urls before opening them
+
+  Throttle the amount of tabs being opened at a time based on amount of tabs being opened
+  */
+
+  const handleOpenFolder = (windowTabs: windowTabData[]) => {
+    windowTabs.map(window => {
+      const urls = window.tabs.map(tab => tab.url);
+      try {
+        chrome.windows.create({ url: urls }, () => {
+          if (chrome.runtime.lastError) {
+            console.error(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
+          }
+        });
+      } catch (err) {
+        console.error(`Exception while opening ${urls}: `, err);
+      }
+    });
+  };
+
   return (
     <DropZone onDrop={onDrop} canDrop={canDrop}>
       <div className='tab-folder-container'>
@@ -113,7 +132,34 @@ const TabFolder = ({
             />
           )}
           <div className='tab-folder-date'>{getPrettyDate(tabFolder.date)}</div>
-          <div
+
+          <Icon
+            materialIconName={isCollapsed ? 'keyboard_arrow_right' : 'keyboard_arrow_down'}
+            tooltipText={isCollapsed ? 'Expand' : 'Collapse'}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleCollapse();
+            }}
+          />
+          <Icon
+            materialIconName='open_in_new'
+            tooltipText='Open all in new window'
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpenFolder(tabFolder.windows);
+            }}
+          />
+          <Icon
+            materialIconName='close'
+            tooltipText='Delete tab folder'
+            onClick={(e) => {
+              e.stopPropagation();
+              handleDeleteFolder();
+            }}
+            varHoverColor='--delete-icon-hover-color'
+          />
+
+          {/* <div
             onClick={(e) => {
               e.stopPropagation();
               toggleCollapse();
@@ -127,6 +173,17 @@ const TabFolder = ({
           <div
             onClick={(e) => {
               e.stopPropagation();
+              handleOpenFolder(tabFolder.windows);
+            }}
+            className=''
+          >
+            <span className='material-symbols-outlined'>
+              open_in_new
+            </span>
+          </div>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
               handleDeleteFolder();
             }}
             className='tab-folder-delete-icon'
@@ -134,7 +191,7 @@ const TabFolder = ({
             <span className='material-symbols-outlined'>
               close
             </span>
-          </div>
+          </div> */}
         </div>
 
         {!isCollapsed && tabFolder.windows.map((window) => (
