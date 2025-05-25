@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
 import './styles/LeftHeader.css';
 import { tabFolderData, windowTabData } from '../../../types';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
@@ -22,18 +23,27 @@ const LeftHeader = ({
       return;
     }
 
-    // change window title to title of the first selected tab
-    // case that the initial set window title from the first tab is not selected
-
     const selectedWindows: windowTabData[] = windowTabs
       .map(window => {
-        const filteredTabs = window.tabs.filter(tab => selectedTabIds.includes(tab.tabId));
-        return filteredTabs.length > 0 ? { ...window, tabs: filteredTabs } : null;
-      })
-      .filter(Boolean) as windowTabData[];
+        const filteredTabs = window.tabs
+          .filter(tab => selectedTabIds.includes(tab.tabId))
+          .map(tab => ({
+            ...tab,
+            tabId: nanoid(),
+          }));
+
+      return filteredTabs.length > 0
+        ? {
+            ...window,
+            windowId: nanoid(),
+            tabs: filteredTabs,
+          }
+        : null;
+    })
+    .filter(Boolean) as windowTabData[];
 
     const newFolder: tabFolderData = {
-      tabFolderId: `folder-${Date.now()}`,
+      tabFolderId: nanoid(),
       title: folderTitle.trim(),
       date: new Date().toISOString(),
       windows: selectedWindows,

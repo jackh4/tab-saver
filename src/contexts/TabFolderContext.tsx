@@ -7,6 +7,7 @@ import {
   ReactNode 
 } from 'react';
 import { tabData, tabFolderData, windowTabData } from '../types';
+import { nanoid } from 'nanoid';
 
 type TabFolderContextType = {
   tabFolders: tabFolderData[];
@@ -49,9 +50,17 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
     );
   }
   case 'ADD_WINDOW_TO_FOLDER': {
+    const newWindow = {
+      ...action.payload.newWindow,
+      windowId: nanoid(),
+      tabs: action.payload.newWindow.tabs.map(t => ({
+        ...t,
+        tabId: nanoid(),
+      })),
+    };
     return state.map(folder =>
       folder.tabFolderId === action.payload.folderId
-        ? { ...folder, windows: [...folder.windows, action.payload.newWindow] }
+        ? { ...folder, windows: [...folder.windows, newWindow] }
         : folder
     );
   }
@@ -78,13 +87,17 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
     );
   }
   case 'ADD_TAB_TO_WINDOW': {
+    const newTab = {
+      ...action.payload.tab,
+      tabId: nanoid(),
+    };
     return state.map(folder =>
       folder.tabFolderId === action.payload.folderId
         ? {
           ...folder,
           windows: folder.windows.map(w =>
             w.windowId === action.payload.windowId
-              ? { ...w, tabs: [...w.tabs, action.payload.tab] }
+              ? { ...w, tabs: [...w.tabs, newTab] }
               : w
           ),
         }

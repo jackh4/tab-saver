@@ -3,6 +3,19 @@
   flex-direction: column;
 }
 
+/* ICON CSS */
+
+.tab-folder-details-delete-icon {
+  display: flex;
+  color: var(--text-color);
+}
+
+.tab-folder-details-delete-icon:hover {
+  background-color: var(--delete-icon-hover-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
 /* WINDOW HEADER */
 
 .tab-folder-details-header {
@@ -44,10 +57,25 @@
 .tab-window-list-item {
   display: flex;
   align-items: center;
+  width: 100%;
+}
+
+.tab-window-list-item .delete-tab-button {
+  display: none;
 }
 
 .tab-window-list-item:hover {
   background-color: var(--selection-color);
+  transition: background-color 0.2s;
+  cursor: pointer;
+}
+
+.tab-window-list-item:hover .delete-tab-button {
+  display: flex;
+}
+
+.tab-window-list-item:hover .delete-tab-button:hover {
+  background-color: var(--delete-icon-hover-color);
   transition: background-color 0.2s;
   cursor: pointer;
 }
