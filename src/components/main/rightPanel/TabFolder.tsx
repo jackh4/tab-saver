@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import './styles/TabFolder.css';
 import { tabFolderData, windowTabData } from '../../../types';
 import { DragItem } from '../../../contexts/DragContext';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
+import useCollapse from '../../../hooks/useCollapse';
+import useEditTitle from '../../../hooks/useEditTitle';
 import TabFolderDetails from './TabFolderDetails';
 import DropZone from '../../common/DropZone';
 import Icon from '../../common/Icon';
@@ -14,34 +15,38 @@ type TabFolderProps = {
 const TabFolder = ({
   tabFolder,
 }: TabFolderProps) => {
-  const tabFolderId = tabFolder.tabFolderId;
   const dispatch = useTabFolderDispatch();
 
-  const [folderTitle, setFolderTitle] = useState(tabFolder.title);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(true);
-
-  const toggleCollapse = () => setIsCollapsed(prev => !prev); 
-  const toggleIsEditing = () => setIsEditing(prev => !prev);
+  const { isCollapsed, toggleCollapse } = useCollapse({ initialState: true });
+  const { 
+    title, 
+    isEditing, 
+    setIsEditing,
+    handleTitleChange, 
+    toggleIsEditing 
+  } = useEditTitle({
+    initialTitle: tabFolder.title,
+    initialEditState: false,
+  });
 
   const handleEditFolderTitle = (newTitle: string) => {
     dispatch({ 
       type: 'UPDATE_FOLDER_TITLE', 
-      payload: { folderId: tabFolderId, newTitle: newTitle} 
+      payload: { folderId: tabFolder.tabFolderId, newTitle: newTitle} 
     });
   };
 
   const handleDeleteFolder = () => {
     dispatch({
       type: 'DELETE_FOLDER',
-      payload: { folderId: tabFolderId }
+      payload: { folderId: tabFolder.tabFolderId }
     });
   };
 
   const handleAddWindow = (window: windowTabData) => {
     dispatch({
       type: 'ADD_WINDOW_TO_FOLDER',
-      payload: { folderId: tabFolderId, newWindow: window }
+      payload: { folderId: tabFolder.tabFolderId, newWindow: window }
     });
   };
 
@@ -51,15 +56,15 @@ const TabFolder = ({
   
   const onDrop = (item: DragItem) => {
     if (item && item.type === 'window') {
-      console.log(`Dropped window "${item.title}" (ID: ${item.windowId}) into folder "${tabFolderId}"`);
+      console.log(`Dropped window "${item.title}" (ID: ${item.windowId}) into folder "${tabFolder.tabFolderId}"`);
       handleAddWindow(item);
     }
   };
 
   const handleBlur = () => {
     setIsEditing(false);
-    if (tabFolder.title !== folderTitle) {
-      handleEditFolderTitle(folderTitle);
+    if (tabFolder.title !== title) {
+      handleEditFolderTitle(title);
     }
   };
 
@@ -67,10 +72,6 @@ const TabFolder = ({
     if (e.key === 'Enter') {
       handleBlur();
     }
-  };
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFolderTitle(e.target.value);
   };
 
   const handleTitleClick = () => {
@@ -121,7 +122,7 @@ const TabFolder = ({
                 onClick={handleTitleClick}
                 className='tab-folder-title'
               >
-                {folderTitle}
+                {title}
               </div>
               <div className='edit-title-button'>
                 <Icon
@@ -136,7 +137,7 @@ const TabFolder = ({
             </div>
           ) : (
             <input
-              value={folderTitle}
+              value={title}
               onBlur={handleBlur}
               onChange={handleTitleChange}
               onKeyDown={(e) => handleKeyDownOnTitle(e)}
@@ -181,7 +182,7 @@ const TabFolder = ({
             {tabFolder.windows.map((window) => (
               <TabFolderDetails 
                 key={window.windowId} 
-                tabFolderId={tabFolderId} 
+                tabFolderId={tabFolder.tabFolderId} 
                 tabWindowData={window} 
               />
             ))}

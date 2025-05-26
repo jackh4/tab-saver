@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import './styles/TabFolderDetails.css';
 import { tabData, windowTabData } from '../../../types';
 import { DragItem } from '../../../contexts/DragContext';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
+import useCollapse from '../../../hooks/useCollapse';
+import useEditTitle from '../../../hooks/useEditTitle';
 import DropZone from '../../common/DropZone';
 import Icon from '../../common/Icon';
 
@@ -15,41 +16,45 @@ const TabFolderDetails = ({
   tabFolderId,
   tabWindowData,
 }: TabFolderDetailsProps) => {
-  const { windowId, tabs } = tabWindowData;
   const dispatch = useTabFolderDispatch();
 
-  const [windowTitle, setWindowTitle] = useState(tabWindowData.title);
-  const [isEditing, setIsEditing] = useState(false);
-  const [isCollapsed, setIsCollapsed] = useState(false);
-
-  const toggleCollapse = () => setIsCollapsed(prev => !prev); 
-  const toggleIsEditing = () => setIsEditing(prev => !prev); 
+  const { isCollapsed, toggleCollapse } = useCollapse({ initialState: false });
+  const { 
+    title, 
+    isEditing, 
+    setIsEditing,
+    handleTitleChange, 
+    toggleIsEditing 
+  } = useEditTitle({
+    initialTitle: tabWindowData.title,
+    initialEditState: false,
+  });
 
   const handleEditWindowTitle = (windowTitle: string) => {
     dispatch({ 
       type: 'UPDATE_WINDOW_TITLE', 
-      payload: { folderId: tabFolderId, windowId: windowId, newTitle: windowTitle } 
+      payload: { folderId: tabFolderId, windowId: tabWindowData.windowId, newTitle: windowTitle } 
     });
   };
 
   const handleDeleteWindow = () => {
     dispatch({
       type: 'DELETE_WINDOW',
-      payload: { folderId: tabFolderId, windowId: windowId }
+      payload: { folderId: tabFolderId, windowId: tabWindowData.windowId }
     });
   };
 
   const handleDeleteTab = (tabId: string) => {
     dispatch({
       type: 'DELETE_TAB_FROM_WINDOW',
-      payload: { folderId: tabFolderId, windowId: windowId, tabId: tabId }
+      payload: { folderId: tabFolderId, windowId: tabWindowData.windowId, tabId: tabId }
     });
   };
 
   const handleAddTab = (tab: tabData) => {
     dispatch({
       type: 'ADD_TAB_TO_WINDOW',
-      payload: { folderId: tabFolderId, windowId: windowId, tab: tab }
+      payload: { folderId: tabFolderId, windowId: tabWindowData.windowId, tab: tab }
     });
   };
 
@@ -66,8 +71,8 @@ const TabFolderDetails = ({
 
   const handleBlur = () => {
     setIsEditing(false);
-    if (tabWindowData.title !== windowTitle) {
-      handleEditWindowTitle(windowTitle);
+    if (tabWindowData.title !== title) {
+      handleEditWindowTitle(title);
     }
   };
 
@@ -75,10 +80,6 @@ const TabFolderDetails = ({
     if (e.key === 'Enter') {
       handleBlur();
     }
-  };
-
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setWindowTitle(e.target.value);
   };
 
   const handleTabClick = (url: string) => {
@@ -125,7 +126,7 @@ const TabFolderDetails = ({
 
           {!isEditing ? (
             <div className='tab-folder-window-title-container'>
-              <div className='tab-folder-window-title'>Window: {windowTitle}</div>
+              <div className='tab-folder-window-title'>Window: {title}</div>
               <div className='window-action-buttons'>
                 <Icon
                   materialIconName='edit'
@@ -148,7 +149,7 @@ const TabFolderDetails = ({
             </div>
           ) : (
             <input
-              value={windowTitle}
+              value={title}
               onBlur={handleBlur}
               onChange={handleTitleChange}
               onKeyDown={(e) => handleKeyDownOnTitle(e)}
@@ -160,7 +161,7 @@ const TabFolderDetails = ({
 
         {!isCollapsed && (
           <ul className='tab-folder-window-list'>
-            {tabs.map(({ tabId, favIcon, title, url }, index) => (
+            {tabWindowData.tabs.map(({ tabId, favIcon, title, url }, index) => (
               <li 
                 key={index} 
                 onClick={() => handleTabClick(url)}

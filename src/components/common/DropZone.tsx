@@ -27,7 +27,7 @@ const DropZone = ({
     if (canDrop(dragItem)) {
       setIsValidDrop(true);
     }
-  }
+  };
 
   const handleDragOver = (e: DragEvent) => {
     e.preventDefault();

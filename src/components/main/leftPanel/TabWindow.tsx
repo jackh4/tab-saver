@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import './styles/TabWindow.css';
 import { windowTabData } from '../../../types';
+import useCollapse from '../../../hooks/useCollapse';
 import DraggableItem from '../../common/DraggableItem';
 
 type TabWindowProps = {
@@ -16,13 +16,10 @@ const TabWindow = ({
   toggleTab,
   toggleWindow
 }: TabWindowProps) => {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const { isCollapsed, toggleCollapse } = useCollapse({ initialState: false });
 
-  const { title, tabs } = windowTabData;
-  const tabIds = tabs.map(tab => tab.tabId);
+  const tabIds = windowTabData.tabs.map(tab => tab.tabId);
   const isWindowSelected = tabIds.every(id => selectedTabIds.includes(id)) && tabIds.length > 0;
-
-  const toggleCollapse = () => setIsCollapsed(prev => !prev); 
 
   const onWindowToggle = () => toggleWindow(tabIds);
 
@@ -47,13 +44,13 @@ const TabWindow = ({
             </span>
           </div>
 
-          <div className='tab-window-title'>Window: {title}</div>
+          <div className='tab-window-title'>Window: {windowTabData.title}</div>
         </div>
       </DraggableItem>
 
       {!isCollapsed && (
         <ul className='tab-window-list'>
-          {tabs.map((tab) => (
+          {windowTabData.tabs.map((tab) => (
             <DraggableItem key={tab.tabId} item={tab}>
               <li 
                 key={tab.tabId}

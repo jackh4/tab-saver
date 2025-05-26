@@ -4,7 +4,7 @@ body {
   --width: 790px;
 }
 
-body {
+body.light {
   --primary-color: #F5F7FA;
   --secondary-color: #E9ECF0;
   --border-color: #4E5053;
@@ -18,7 +18,7 @@ body {
   --delete-icon-hover-color: #FF8080;
 }
 
-body.dark {
+body {
   --primary-color: #2A2A2A;
   --secondary-color: #333333;
   --border-color: #4E4E4E;
