@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import './styles/TabWindowList.css';
 import { windowTabData } from '../../../types';
 import TabWindow from './TabWindow';
@@ -5,7 +6,7 @@ import TabWindow from './TabWindow';
 type TabWindowListProps = {
   windowTabs: windowTabData[];
   selectedTabIds: string[];
-  setSelectedTabIds: React.Dispatch<React.SetStateAction<string[]>>;
+  setSelectedTabIds: Dispatch<SetStateAction<string[]>>;
 };
 
 const TabWindowList = ({ 

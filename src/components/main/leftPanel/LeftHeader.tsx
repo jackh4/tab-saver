@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { nanoid } from 'nanoid';
 import './styles/LeftHeader.css';
 import { tabFolderData, windowTabData } from '../../../types';
@@ -7,11 +7,13 @@ import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 type LeftHeaderProps = {
   windowTabs: windowTabData[];
   selectedTabIds: string[];
+  setSelectedTabIds: Dispatch<SetStateAction<string[]>>
 };
 
 const LeftHeader = ({ 
   windowTabs, 
-  selectedTabIds 
+  selectedTabIds,
+  setSelectedTabIds,
 }: LeftHeaderProps) => {
   const [folderTitle, setFolderTitle] = useState('');
 
@@ -51,6 +53,7 @@ const LeftHeader = ({
 
     dispatch({ type: 'ADD_FOLDER', payload: newFolder });
     setFolderTitle('');
+    setSelectedTabIds([]);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

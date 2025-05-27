@@ -52,6 +52,7 @@ export default function LeftPanel() {
       <LeftHeader 
         windowTabs={windowTabs}
         selectedTabIds={selectedTabIds} 
+        setSelectedTabIds={setSelectedTabIds}
       />
       <TabWindowList 
         windowTabs={windowTabs}
