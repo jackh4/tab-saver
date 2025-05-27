@@ -65,14 +65,15 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
     );
   }
   case 'DELETE_WINDOW': {
-    return state.map(folder =>
-      folder.tabFolderId === action.payload.folderId
-        ? {
-          ...folder,
-          windows: folder.windows.filter(w => w.windowId !== action.payload.windowId),
-        }
-        : folder
-    );
+    const newState = state.map(folder => {
+      if (folder.tabFolderId !== action.payload.folderId) return folder;
+
+      const filteredWindows = folder.windows.filter(w => w.windowId !== action.payload.windowId);
+
+      return { ...folder, windows: filteredWindows };
+    })
+
+    return newState.filter(folder => folder.windows.length > 0);
   }
   case 'UPDATE_WINDOW_TITLE': {
     return state.map(folder =>
@@ -105,21 +106,20 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
     );
   }
   case 'DELETE_TAB_FROM_WINDOW': {
-    return state.map(folder =>
-      folder.tabFolderId === action.payload.folderId
-        ? {
-          ...folder,
-          windows: folder.windows.map(w =>
-            w.windowId === action.payload.windowId
-              ? {
-                ...w,
-                tabs: w.tabs.filter(tab => tab.tabId !== action.payload.tabId),
-              }
-              : w
-          ),
-        }
-        : folder
-    );
+    const newState = state.map(folder => {
+      if (folder.tabFolderId !== action.payload.folderId) return folder;
+
+      const newWindows = folder.windows.map(w => {
+        if (w.windowId !== action.payload.windowId) return w;
+
+        const newTabs = w.tabs.filter(tab => tab.tabId !== action.payload.tabId);
+        return { ...w, tabs: newTabs };
+      }).filter(w => w.tabs.length > 0);
+
+      return { ...folder, windows: newWindows };
+    }); 
+
+    return newState.filter(folder => folder.windows.length > 0);
   }
   default: {
     return state;
