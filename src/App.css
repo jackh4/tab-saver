@@ -1,7 +1,7 @@
 body {
   /* Max width and height of extension popup is 800px and 600px */
-  --height: 590px;
-  --width: 790px;
+  --height: 500px;
+  --width: 700px;
 }
 
 body.light {

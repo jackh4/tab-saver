@@ -112,6 +112,7 @@ const TabFolderDetails = ({
     <DropZone onDrop={onDrop} canDrop={canDrop}>
       <div className='tab-folder-details-container'>
         <div 
+          title='Open window'
           onClick={() => handleWindowClick(tabWindowData.tabs)}
           className='tab-folder-details-header'
         >
@@ -164,6 +165,7 @@ const TabFolderDetails = ({
             {tabWindowData.tabs.map(({ tabId, favIcon, title, url }, index) => (
               <li 
                 key={index} 
+                title='Open tab'
                 onClick={() => handleTabClick(url)}
                 className='tab-folder-window-list-item'
               >

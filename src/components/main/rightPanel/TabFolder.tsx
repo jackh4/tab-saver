@@ -4,6 +4,7 @@ import { DragItem } from '../../../contexts/DragContext';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 import useCollapse from '../../../hooks/useCollapse';
 import useEditTitle from '../../../hooks/useEditTitle';
+import { getPrettyDate } from '../../../utils/functions';
 import TabFolderDetails from './TabFolderDetails';
 import DropZone from '../../common/DropZone';
 import Icon from '../../common/Icon';
@@ -76,17 +77,6 @@ const TabFolder = ({
 
   const handleTitleClick = () => {
     setIsEditing(true);
-  };
-
-  const getPrettyDate = (date: string) => {
-    return new Date(date).toLocaleString('en-US', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true,
-    });
   };
 
   /*

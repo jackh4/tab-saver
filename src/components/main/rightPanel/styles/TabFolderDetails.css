@@ -40,6 +40,7 @@
   white-space: nowrap;
   overflow: hidden;
   color: var(--text-color);
+  user-select: none;
 }
 
 .tab-folder-window-title-edit {
@@ -89,12 +90,14 @@
   padding: 4px;
   margin-right: 8px;
   color: var(--text-color);
+  user-select: none;
 }
 
 .tab-folder-window-list-item-title {
   white-space: nowrap;
   overflow: hidden;
   color: var(--text-color);
+  user-select: none;
 }
 
 .tab-folder-window-list-item:hover {

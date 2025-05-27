@@ -13,7 +13,7 @@ const TabFolderList = ({
     <div className='tab-folder-list-container'>
       {tabFolders.length === 0 ? (
         <div className='tab-folder-list-empty'>
-          No tab folder saved
+          Empty
         </div>
       ) : (
         tabFolders.map((tabFolder) => (

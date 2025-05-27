@@ -8,7 +8,7 @@
   border: 1px solid var(--border-color);
   background-color: var(--primary-color);
   color: var(--text-color);
-  height: 24px;
+  height: 36px;
 }
 
 .left-header-title-input:focus {
