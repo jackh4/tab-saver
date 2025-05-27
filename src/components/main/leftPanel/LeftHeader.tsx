@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from 'react';
+import { Dispatch, SetStateAction } from 'react';
 import { nanoid } from 'nanoid';
 import './styles/LeftHeader.css';
 import { tabFolderData, windowTabData } from '../../../types';
@@ -6,53 +6,53 @@ import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 
 type LeftHeaderProps = {
   windowTabs: windowTabData[];
+  folderTitle: string;
+  setFolderTitle: Dispatch<SetStateAction<string>>;
   selectedTabIds: string[];
-  setSelectedTabIds: Dispatch<SetStateAction<string[]>>
+  setSelectedTabIds: Dispatch<SetStateAction<string[]>>;
 };
 
 const LeftHeader = ({ 
   windowTabs, 
+  folderTitle,
+  setFolderTitle,
   selectedTabIds,
   setSelectedTabIds,
 }: LeftHeaderProps) => {
-  const [folderTitle, setFolderTitle] = useState('');
-
   const dispatch = useTabFolderDispatch();
 
   const handleSave = () => {
-    if (!folderTitle.trim()) {
-      console.warn('Folder title is required.');
+    if (!selectedTabIds.length) {
+      console.warn('Please select tabs to be saved');
       return;
     }
 
-    const selectedWindows: windowTabData[] = windowTabs
-      .map(window => {
-        const filteredTabs = window.tabs
-          .filter(tab => selectedTabIds.includes(tab.tabId))
-          .map(tab => ({
-            ...tab,
-            tabId: nanoid(),
-          }));
+    const selectedWindows: windowTabData[] = windowTabs.map(window => {
+      const filteredTabs = window.tabs.filter(tab => 
+        selectedTabIds.includes(tab.tabId)).map(tab => ({
+          ...tab,
+          tabId: nanoid(),
+        }));
 
-        return filteredTabs.length > 0
-          ? {
-            ...window,
-            windowId: nanoid(),
-            tabs: filteredTabs,
-          }
-          : null;
-      })
-      .filter(Boolean) as windowTabData[];
+      return filteredTabs.length > 0
+        ? {
+          ...window,
+          windowId: nanoid(),
+          tabs: filteredTabs,
+        } 
+        : null;
+    }).filter(Boolean) as windowTabData[];
+
+    const title = folderTitle.trim() ? folderTitle.trim() : 'Tab Folder'
 
     const newFolder: tabFolderData = {
       tabFolderId: nanoid(),
-      title: folderTitle.trim(),
+      title: title,
       date: new Date().toISOString(),
       windows: selectedWindows,
     };
 
     dispatch({ type: 'ADD_FOLDER', payload: newFolder });
-    setFolderTitle('');
     setSelectedTabIds([]);
   };
 
@@ -71,9 +71,14 @@ const LeftHeader = ({
         onKeyDown={handleKeyDown}
         className='left-header-title-input'
       />
-      <button onClick={handleSave}>Save</button>
+      <button 
+        onClick={handleSave}
+        className='left-header-save-button'
+      >
+        Save
+      </button>
 
-      <div className='material-symbols-outlined'>
+      <div className='left-header-settings material-symbols-outlined'>
         settings
       </div>
     </div>

@@ -9,16 +9,35 @@
   background-color: var(--primary-color);
   color: var(--text-color);
   height: 36px;
+  width: 100%;
+  padding-left: 5px;
 }
 
 .left-header-title-input:focus {
   outline: none;
 }
 
-/* .left-header-save {
+.left-header-save-button {
+  display: flex;
+  height: 36px;
+  background-color: var(--primary-color);
+  border: 1px solid var(--border-color);
+  border-radius: 0;
+  justify-content: center;
+  align-items: center;
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 8px;
+  color: var(--text-color);
+  user-select: none;
+}
 
+.left-header-save-button:hover {
+  background-color: var(--hover-color);
+  cursor: pointer;
 }
 
 .left-header-settings {
-
-} */
+  color: var(--text-color);
+  user-select: none;
+}

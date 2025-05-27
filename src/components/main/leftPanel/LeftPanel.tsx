@@ -5,17 +5,8 @@ import TabWindowList from './TabWindowList';
 import { tabData, windowTabData } from '../../../types';
 
 export default function LeftPanel() {
+  const [folderTitle, setFolderTitle] = useState('');
   const [windowTabs, setWindowTabs] = useState<windowTabData[]>([]);
-
-  /*
-  - When the user selects a tab, window data (includes tab data) is added
-  - When the user selects a window:
-    - Selects all tabs not already selected (if unchecked)
-    - Unselects all tabs already selected (if checked)
-  - When the user selects all:
-    - Selects all tabs not already selected (if unchecked)
-    - Unselects all tabs already selected (if checked)
-  */
   const [selectedTabIds, setSelectedTabIds] = useState<string[]>([]);
 
   useEffect(() => {
@@ -42,6 +33,10 @@ export default function LeftPanel() {
       });
       
       setWindowTabs(result);
+
+      if (result.length > 0) {
+        setFolderTitle(result[0].title);
+      }
     };
 
     fetchTabsByWindow();
@@ -51,6 +46,8 @@ export default function LeftPanel() {
     <div className='left-panel'>
       <LeftHeader 
         windowTabs={windowTabs}
+        folderTitle={folderTitle}
+        setFolderTitle={setFolderTitle}
         selectedTabIds={selectedTabIds} 
         setSelectedTabIds={setSelectedTabIds}
       />
