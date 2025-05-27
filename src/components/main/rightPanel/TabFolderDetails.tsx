@@ -127,7 +127,7 @@ const TabFolderDetails = ({
 
           {!isEditing ? (
             <div className='tab-folder-window-title-container'>
-              <div className='tab-folder-window-title'>Window: {title}</div>
+              <div className='tab-folder-window-title'>{title}</div>
               <div className='window-action-buttons'>
                 <Icon
                   materialIconName='edit'

@@ -44,7 +44,7 @@ const TabWindow = ({
             </span>
           </div>
 
-          <div className='tab-window-title'>Window: {windowTabData.title}</div>
+          <div className='tab-window-title'>{windowTabData.title}</div>
         </div>
       </DraggableItem>
 
