@@ -40,22 +40,22 @@ export default function RightPanel() {
                   ...window,
                   tabs: filterTabs,
                   title: filterTabs[0].title,
-                })
+                });
               }
             }
 
             return filterWindows;
           }, []);
 
-          if (matchedWindows.length) {
-            filterFolders.push({
-              ...folder,
-              windows: matchedWindows,
-            })
-          }
+        if (matchedWindows.length) {
+          filterFolders.push({
+            ...folder,
+            windows: matchedWindows,
+          });
+        }
       }
 
-      return filterFolders
+      return filterFolders;
     }, []);
   }, [tabFolders, searchText]);
 

@@ -14,7 +14,7 @@ export default function RightHeader({
 
   const handleIconClick = () => {
     inputRef.current?.focus();
-  }
+  };
 
   return (
     <div className='right-header-container'>

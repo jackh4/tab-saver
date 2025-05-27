@@ -71,7 +71,7 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
       const filteredWindows = folder.windows.filter(w => w.windowId !== action.payload.windowId);
 
       return { ...folder, windows: filteredWindows };
-    })
+    });
 
     return newState.filter(folder => folder.windows.length > 0);
   }
