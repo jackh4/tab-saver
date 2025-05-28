@@ -4,7 +4,13 @@ import LeftHeader from './LeftHeader';
 import TabWindowList from './TabWindowList';
 import { tabData, windowTabData } from '../../../types';
 
-export default function LeftPanel() {
+type LeftPanelProps = {
+  setShowSettings: (showSettings: boolean) => void;
+}
+
+const LeftPanel = ({
+  setShowSettings
+}: LeftPanelProps) => {
   const [folderTitle, setFolderTitle] = useState('');
   const [windowTabs, setWindowTabs] = useState<windowTabData[]>([]);
   const [selectedTabIds, setSelectedTabIds] = useState<string[]>([]);
@@ -12,7 +18,13 @@ export default function LeftPanel() {
   useEffect(() => {
     const fetchTabsByWindow = async () => {
       const allWindows = await new Promise<chrome.windows.Window[]>((resolve) =>
-        chrome.windows.getAll({ populate: true }, resolve)
+        chrome.windows.getAll({ populate: true }, (windows) => {
+          if (chrome.runtime.lastError) {
+            console.warn('Error fetching current windows: ', chrome.runtime.lastError.message);
+          } else {
+            resolve(windows);
+          }
+        })
       );
 
       const result: windowTabData[] = allWindows.map((win) => {
@@ -50,6 +62,7 @@ export default function LeftPanel() {
         setFolderTitle={setFolderTitle}
         selectedTabIds={selectedTabIds} 
         setSelectedTabIds={setSelectedTabIds}
+        setShowSettings={setShowSettings}
       />
       <TabWindowList 
         windowTabs={windowTabs}
@@ -58,4 +71,6 @@ export default function LeftPanel() {
       />
     </div>
   );
-}
+};
+
+export default LeftPanel;

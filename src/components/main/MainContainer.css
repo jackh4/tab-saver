@@ -1,0 +1,49 @@
+.light {
+  --primary-color: #F5F7FA;
+  --secondary-color: #E9ECF0;
+  --border-color: #4E5053;
+  --text-color: #3B3D40;
+  --label-color-1: #4A4C4F;
+  --label-color-2: #6E7073;
+  --label-color-3: #9A9C9F;
+  --selection-color: #CBCED3;
+  --hover-color: #DFE2E6;
+  --icon-hover-color: #F8FAFC;
+  --delete-icon-hover-color: #FF8080;
+}
+
+.dark {
+  --primary-color: #2A2A2A;
+  --secondary-color: #333333;
+  --border-color: #4E4E4E;
+  --text-color: #D0D0D0;
+  --label-color-1: #B0B0B0;
+  --label-color-2: #8D8D8D;
+  --label-color-3: #6B6B6B;
+  --selection-color: #3B3B3B;
+  --hover-color: #3E3E3E;
+  --icon-hover-color: #4A4A4A;
+  --delete-icon-hover-color: #E57373;
+}
+
+.main-container {
+  display: flex;
+  width: var(--width);
+  justify-content: space-between;
+  align-content: center;
+}
+
+.left-panel-container {
+  height: var(--height);
+  width: 50%;
+  background-color: var(--primary-color);
+  border: 1px solid var(--border-color);
+  border-right: none;
+}
+
+.right-panel-container {
+  height: var(--height);
+  width: 50%;
+  background-color: var(--primary-color);
+  border: 1px solid var(--border-color);
+}

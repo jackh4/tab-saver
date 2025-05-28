@@ -5,7 +5,7 @@ import { useTabFolderContext } from '../../../contexts/TabFolderContext';
 import { useMemo, useState } from 'react';
 import { tabFolderData, windowTabData } from '../../../types';
 
-export default function RightPanel() {
+const RightPanel = () => {
   const tabFolders = useTabFolderContext();
   const [searchText, setSearchText] = useState('');
 
@@ -70,4 +70,6 @@ export default function RightPanel() {
       />
     </div>
   );
-}
+};
+
+export default RightPanel;

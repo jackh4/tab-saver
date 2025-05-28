@@ -83,29 +83,20 @@ const TabFolderDetails = ({
   };
 
   const handleTabClick = (url: string) => {
-    try {
-      chrome.tabs.create({ url: url }, () => {
-        if (chrome.runtime.lastError) {
-          console.error(`Chrome API error opening ${url}: `, chrome.runtime.lastError.message);
-        }
-      });
-    } catch (err) {
-      console.error(`Exception while opening ${url}: `, err);
-    }
+    chrome.tabs.create({ url: url }, () => {
+      if (chrome.runtime.lastError) {
+        console.warn(`Chrome API error opening ${url}: `, chrome.runtime.lastError.message);
+      }
+    });
   };
 
   const handleWindowClick = (tabs: tabData[]) => {
     const urls = tabs.map(tab => tab.url);
-
-    try {
-      chrome.windows.create({ url: urls }, () => {
-        if (chrome.runtime.lastError) {
-          console.error(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
-        }
-      });
-    } catch (err) {
-      console.error(`Exception while opening ${urls}: `, err);
-    }
+    chrome.windows.create({ url: urls }, () => {
+      if (chrome.runtime.lastError) {
+        console.warn(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
+      }
+    });
   };
 
   return (

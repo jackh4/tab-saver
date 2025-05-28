@@ -133,17 +133,25 @@ export const TabFolderProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     chrome.storage.local.get(['tabFolders'], (result) => {
-      const loaded: tabFolderData[] = Array.isArray(result.tabFolders)
-        ? result.tabFolders
-        : [];
-      rawDispatch({ type: 'SET_ALL', payload: loaded });
-      setIsLoaded(true);
+      if (chrome.runtime.lastError) {
+        console.warn('Error fetching folders:', chrome.runtime.lastError.message);
+      } else {
+        const loaded: tabFolderData[] = Array.isArray(result.tabFolders)
+          ? result.tabFolders
+          : [];
+        rawDispatch({ type: 'SET_ALL', payload: loaded });
+        setIsLoaded(true);
+      }
     });
   }, []);
 
   const dispatch = (action: TabFolderAction) => {
     const newState = tabFolderReducer(tabFolders, action);
-    chrome.storage.local.set({ tabFolders: newState });
+    chrome.storage.local.set({ tabFolders: newState }, () => {
+      if (chrome.runtime.lastError) {
+        console.warn('Error dispatching folder update:', chrome.runtime.lastError.message);
+      }
+    });
     rawDispatch(action);
   };
 

@@ -1,10 +1,11 @@
 import './styles/TabFolder.css';
 import { tabFolderData, windowTabData } from '../../../types';
 import { DragItem } from '../../../contexts/DragContext';
+import { useSettingsContext } from '../../../contexts/SettingsContext';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 import useCollapse from '../../../hooks/useCollapse';
 import useEditTitle from '../../../hooks/useEditTitle';
-import { getPrettyDate } from '../../../utils/functions';
+import { createLazyURL, getPrettyDate } from '../../../utils/functions';
 import TabFolderDetails from './TabFolderDetails';
 import DropZone from '../../common/DropZone';
 import Icon from '../../common/Icon';
@@ -16,6 +17,8 @@ type TabFolderProps = {
 const TabFolder = ({
   tabFolder,
 }: TabFolderProps) => {
+  const settings = useSettingsContext();
+
   const dispatch = useTabFolderDispatch();
 
   const { isCollapsed, toggleCollapse } = useCollapse({ initialState: true });
@@ -79,26 +82,34 @@ const TabFolder = ({
     setIsEditing(true);
   };
 
-  /*
-  Extra safety steps
-
-  Validate urls before opening them
-
-  Throttle the amount of tabs being opened at a time based on amount of tabs being opened
-  */
-
   const handleOpenFolder = (windowTabs: windowTabData[]) => {
-    windowTabs.map(window => {
-      const urls = window.tabs.map(tab => tab.url);
-      try {
-        chrome.windows.create({ url: urls }, () => {
-          if (chrome.runtime.lastError) {
-            console.error(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
-          }
-        });
-      } catch (err) {
-        console.error(`Exception while opening ${urls}: `, err);
-      }
+    // windowTabs.map(window => {
+    //   const urls = window.tabs.map(tab => tab.url);
+    //   chrome.windows.create({ url: urls }, () => {
+    //     if (chrome.runtime.lastError) {
+    //       console.warn(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
+    //     }
+    //   });
+    // });
+    windowTabs.forEach(window => {
+      const urls = window.tabs.map(tab => {
+        if (settings.lazyLoad) {
+          return createLazyURL(
+            tab.title,
+            tab.favIcon,
+            tab.url,
+            'Go to site'
+          );
+        } else {
+          return tab.url;
+        }
+      });
+
+      chrome.windows.create({ url: urls }, () => {
+        if (chrome.runtime.lastError) {
+          console.warn(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
+        }
+      });
     });
   };
 

@@ -1,15 +1,16 @@
-import { Dispatch, SetStateAction } from 'react';
 import { nanoid } from 'nanoid';
 import './styles/LeftHeader.css';
 import { tabFolderData, windowTabData } from '../../../types';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
+import Icon from '../../common/Icon';
 
 type LeftHeaderProps = {
   windowTabs: windowTabData[];
   folderTitle: string;
-  setFolderTitle: Dispatch<SetStateAction<string>>;
+  setFolderTitle: (title: string) => void;
   selectedTabIds: string[];
-  setSelectedTabIds: Dispatch<SetStateAction<string[]>>;
+  setSelectedTabIds: (tabIds: string[]) => void;
+  setShowSettings: (showSettings: boolean) => void;
 };
 
 const LeftHeader = ({ 
@@ -18,6 +19,7 @@ const LeftHeader = ({
   setFolderTitle,
   selectedTabIds,
   setSelectedTabIds,
+  setShowSettings,
 }: LeftHeaderProps) => {
   const dispatch = useTabFolderDispatch();
 
@@ -30,9 +32,9 @@ const LeftHeader = ({
     const selectedWindows: windowTabData[] = windowTabs.map(window => {
       const filteredTabs = window.tabs.filter(tab => 
         selectedTabIds.includes(tab.tabId)).map(tab => ({
-          ...tab,
-          tabId: nanoid(),
-        }));
+        ...tab,
+        tabId: nanoid(),
+      }));
 
       return filteredTabs.length > 0
         ? {
@@ -43,7 +45,7 @@ const LeftHeader = ({
         : null;
     }).filter(Boolean) as windowTabData[];
 
-    const title = folderTitle.trim() ? folderTitle.trim() : 'Tab Folder'
+    const title = folderTitle.trim() ? folderTitle.trim() : 'Tab Folder';
 
     const newFolder: tabFolderData = {
       tabFolderId: nanoid(),
@@ -77,10 +79,11 @@ const LeftHeader = ({
       >
         Save
       </button>
-
-      <div className='left-header-settings material-symbols-outlined'>
-        settings
-      </div>
+      <Icon
+        materialIconName='settings'
+        tooltipText='Open settings'
+        onClick={() => setShowSettings(true)}
+      />
     </div>
   );
 };
