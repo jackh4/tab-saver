@@ -1,4 +1,4 @@
-# Tab Saver Chrome Extension
+# <sub><img src="/public/icons/icon128.png" width=32px height=32px></sub> Tab Saver Chrome Extension
 
 Save and organize your open tabs and windows into folders.
 
