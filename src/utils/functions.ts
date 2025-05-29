@@ -13,8 +13,12 @@ export function createLazyURL(
   title: string,
   favIconURL: string,
   url: string,
-  goToURLText: string
+  goToURLText: string = 'Visit Site'
 ) {
+  if (url.startsWith('data:text/html;base64')) {
+    return url;
+  }
+
   const html = `
     <html>
       <head>
@@ -70,6 +74,10 @@ export function createLazyURL(
     </html>
   `;
 
-  const base64Html = btoa(html);
-  return `data:text/html;base64,${base64Html}`;
+  const base64Html = encodeURIComponent(html).replace(/%([0-9A-F]{2})/g, (_match, p1) =>
+    String.fromCharCode(parseInt(p1, 16))
+  );
+  const base64 = btoa(base64Html);
+
+  return `data:text/html;base64,${base64}`;
 }

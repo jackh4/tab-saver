@@ -83,23 +83,10 @@ const TabFolder = ({
   };
 
   const handleOpenFolder = (windowTabs: windowTabData[]) => {
-    // windowTabs.map(window => {
-    //   const urls = window.tabs.map(tab => tab.url);
-    //   chrome.windows.create({ url: urls }, () => {
-    //     if (chrome.runtime.lastError) {
-    //       console.warn(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
-    //     }
-    //   });
-    // });
     windowTabs.forEach(window => {
       const urls = window.tabs.map(tab => {
         if (settings.lazyLoad) {
-          return createLazyURL(
-            tab.title,
-            tab.favIcon,
-            tab.url,
-            'Go to site'
-          );
+          return createLazyURL(tab.title, tab.favIcon, tab.url);
         } else {
           return tab.url;
         }

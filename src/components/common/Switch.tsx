@@ -36,9 +36,9 @@ const Switch = ({
   };
 
   return (
-    <label className="switch" style={{ width, height }}>
+    <label className='switch' style={{ width, height }}>
       <input
-        type="checkbox"
+        type='checkbox'
         checked={checked}
         defaultChecked={defaultChecked}
         onChange={handleChange}

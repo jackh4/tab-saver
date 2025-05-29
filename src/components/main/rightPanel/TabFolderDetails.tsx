@@ -1,9 +1,11 @@
 import './styles/TabFolderDetails.css';
 import { tabData, windowTabData } from '../../../types';
+import { useSettingsContext } from '../../../contexts/SettingsContext';
 import { DragItem } from '../../../contexts/DragContext';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
 import useCollapse from '../../../hooks/useCollapse';
 import useEditTitle from '../../../hooks/useEditTitle';
+import { createLazyURL } from '../../../utils/functions';
 import DropZone from '../../common/DropZone';
 import Icon from '../../common/Icon';
 
@@ -16,6 +18,8 @@ const TabFolderDetails = ({
   tabFolderId,
   tabWindowData,
 }: TabFolderDetailsProps) => {
+  const settings = useSettingsContext();
+
   const dispatch = useTabFolderDispatch();
 
   const { isCollapsed, toggleCollapse } = useCollapse({ initialState: false });
@@ -91,7 +95,14 @@ const TabFolderDetails = ({
   };
 
   const handleWindowClick = (tabs: tabData[]) => {
-    const urls = tabs.map(tab => tab.url);
+    const urls = tabs.map(tab => {
+      if (settings.lazyLoad) {
+        return createLazyURL(tab.title, tab.favIcon, tab.url);
+      } else {
+        return tab.url;
+      }
+    });
+
     chrome.windows.create({ url: urls }, () => {
       if (chrome.runtime.lastError) {
         console.warn(`Chrome API error opening ${urls}: `, chrome.runtime.lastError.message);
