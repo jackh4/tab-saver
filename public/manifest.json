@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Tab Saver",
-  "description": "Save tabs for personnal usage",
+  "description": "Save tabs and windows in tab folders",
   "version": "1.0.0",
   "action": {
     "default_popup": "index.html"
