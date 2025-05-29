@@ -100,6 +100,12 @@ const TabFolder = ({
     });
   };
 
+  const tabFolderCountText = `${tabFolder.windowCount} ${
+    tabFolder.windowCount === 1 ? 'Window' : 'Windows'
+  } - ${tabFolder.tabCount} ${
+    tabFolder.tabCount === 1 ? 'Tab' : 'Tabs'
+  }`;
+
   return (
     <div className='tab-folder-container'>
       <DropZone onDrop={onDrop} canDrop={canDrop}>
@@ -134,6 +140,7 @@ const TabFolder = ({
             />
           )}
           <div className='tab-folder-date'>{getPrettyDate(tabFolder.date)}</div>
+          <div className='tab-folder-count'>{tabFolderCountText}</div>
 
           <div className='tab-folder-action-container'>
             <Icon

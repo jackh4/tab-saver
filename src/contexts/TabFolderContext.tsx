@@ -60,7 +60,12 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
     };
     return state.map(folder =>
       folder.tabFolderId === action.payload.folderId
-        ? { ...folder, windows: [...folder.windows, newWindow] }
+        ? { 
+          ...folder, 
+          windowCount: folder.windowCount + 1,
+          tabCount: folder.tabCount + newWindow.tabCount,
+          windows: [...folder.windows, newWindow] 
+        }
         : folder
     );
   }
@@ -70,7 +75,14 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
 
       const filteredWindows = folder.windows.filter(w => w.windowId !== action.payload.windowId);
 
-      return { ...folder, windows: filteredWindows };
+      const totalTabs = filteredWindows.reduce((total, w) => total + w.tabs.length, 0);
+
+      return { 
+        ...folder, 
+        windowCount: filteredWindows.length,
+        tabCount: totalTabs,
+        windows: filteredWindows 
+      };
     });
 
     return newState.filter(folder => folder.windows.length > 0);
@@ -96,6 +108,7 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
       folder.tabFolderId === action.payload.folderId
         ? {
           ...folder,
+          tabCount: folder.tabCount + 1,
           windows: folder.windows.map(w =>
             w.windowId === action.payload.windowId
               ? { ...w, tabs: [...w.tabs, newTab] }
@@ -113,10 +126,20 @@ const tabFolderReducer = (state: tabFolderData[], action: TabFolderAction): tabF
         if (w.windowId !== action.payload.windowId) return w;
 
         const newTabs = w.tabs.filter(tab => tab.tabId !== action.payload.tabId);
-        return { ...w, tabs: newTabs };
+        return { 
+          ...w, 
+          tabCount: newTabs.length,
+          tabs: newTabs,
+        };
       }).filter(w => w.tabs.length > 0);
 
-      return { ...folder, windows: newWindows };
+      const totalTabs = newWindows.reduce((total, w) => total + w.tabs.length, 0);
+
+      return { 
+        ...folder, 
+        tabCount: totalTabs,
+        windows: newWindows 
+      };
     }); 
 
     return newState.filter(folder => folder.windows.length > 0);

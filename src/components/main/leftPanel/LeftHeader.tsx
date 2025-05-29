@@ -40,17 +40,23 @@ const LeftHeader = ({
         ? {
           ...window,
           windowId: nanoid(),
+          tabCount: filteredTabs.length,
           tabs: filteredTabs,
         } 
         : null;
     }).filter(Boolean) as windowTabData[];
 
     const title = folderTitle.trim() ? folderTitle.trim() : 'Tab Folder';
+    const totalTabCount = selectedWindows.reduce(
+      (count: number, window) => count + window.tabCount, 0
+    );
 
     const newFolder: tabFolderData = {
       tabFolderId: nanoid(),
       title: title,
       date: new Date().toISOString(),
+      windowCount: selectedWindows.length,
+      tabCount: totalTabCount,
       windows: selectedWindows,
     };
 

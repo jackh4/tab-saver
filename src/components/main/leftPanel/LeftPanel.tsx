@@ -40,6 +40,7 @@ const LeftPanel = ({
           type: 'window',
           windowId: String(win.id),
           title: tabs[0]?.title || `Window ${win.id}`,
+          tabCount: tabs.length,
           tabs,
         };
       });

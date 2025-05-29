@@ -61,6 +61,13 @@
   user-select: none;
 }
 
+.tab-folder-count {
+  color: var(--label-color-3);
+  padding-left: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
 .tab-folder-action-container {
   display: flex;
   flex-direction: row;
