@@ -1,7 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 
+export type Themes = 'light' | 'dark' | 'warm' | 'cool'
+
 export type UserSettings = {
-  theme: 'light' | 'dark';
+  theme: Themes;
   lazyLoad: boolean;
 }
 

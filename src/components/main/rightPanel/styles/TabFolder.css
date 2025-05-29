@@ -66,6 +66,7 @@
   padding-left: 4px;
   white-space: nowrap;
   overflow: hidden;
+  user-select: none;
 }
 
 .tab-folder-action-container {

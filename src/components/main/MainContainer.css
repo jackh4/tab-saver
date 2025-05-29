@@ -1,29 +1,57 @@
 .light {
-  --primary-color: #F5F7FA;
-  --secondary-color: #E9ECF0;
-  --border-color: #4E5053;
-  --text-color: #3B3D40;
-  --label-color-1: #4A4C4F;
-  --label-color-2: #6E7073;
-  --label-color-3: #9A9C9F;
-  --selection-color: #CBCED3;
-  --hover-color: #DFE2E6;
-  --icon-hover-color: #F8FAFC;
-  --delete-icon-hover-color: #FF8080;
+  --primary-color: #F7F9FC;
+  --secondary-color: #EDF1F5;
+  --border-color: #5A5C60;
+  --text-color: #2F3134;
+  --label-color-1: #46484B;
+  --label-color-2: #6C6E71;
+  --label-color-3: #A0A2A5;
+  --selection-color: #D5D9DE;
+  --hover-color: #E5E8EC;
+  --icon-hover-color: #FFFFFF;
+  --delete-icon-hover-color: #FF6B6B;
 }
 
 .dark {
-  --primary-color: #2A2A2A;
-  --secondary-color: #333333;
-  --border-color: #4E4E4E;
-  --text-color: #D0D0D0;
-  --label-color-1: #B0B0B0;
-  --label-color-2: #8D8D8D;
-  --label-color-3: #6B6B6B;
-  --selection-color: #3B3B3B;
-  --hover-color: #3E3E3E;
-  --icon-hover-color: #4A4A4A;
-  --delete-icon-hover-color: #E57373;
+  --primary-color: #222222;
+  --secondary-color: #2A2A2A;
+  --border-color: #5C5C5C;
+  --text-color: #E0E0E0;
+  --label-color-1: #C2C2C2;
+  --label-color-2: #999999;
+  --label-color-3: #777777;
+  --selection-color: #323232;
+  --hover-color: #404040;
+  --icon-hover-color: #555555;
+  --delete-icon-hover-color: #FF5C5C;
+}
+
+.warm {
+  --primary-color: #FAF3E0;
+  --secondary-color: #F2E6D8;
+  --border-color: #B78A62;
+  --text-color: #5A3E2B;
+  --label-color-1: #6B4A32;
+  --label-color-2: #8A664D;
+  --label-color-3: #B79C83;
+  --selection-color: #ECD6C0;
+  --hover-color: #F5E2C6;
+  --icon-hover-color: #FFF5E6;
+  --delete-icon-hover-color: #E67E76;
+}
+
+.cool {
+  --primary-color: #EAF6F9;
+  --secondary-color: #D4EEF2;
+  --border-color: #66AABF;
+  --text-color: #2D4C57;
+  --label-color-1: #3F6A74;
+  --label-color-2: #5E8790;
+  --label-color-3: #8DAAB1;
+  --selection-color: #CDE5EA;
+  --hover-color: #DEF0F4;
+  --icon-hover-color: #F2FBFD;
+  --delete-icon-hover-color: #FF6B6B;
 }
 
 .main-container {

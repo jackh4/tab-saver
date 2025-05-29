@@ -80,6 +80,7 @@ const LeftHeader = ({
         className='left-header-title-input'
       />
       <button 
+        title='Save selected tabs'
         onClick={handleSave}
         className='left-header-save-button'
       >

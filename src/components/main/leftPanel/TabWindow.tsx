@@ -29,6 +29,7 @@ const TabWindow = ({
     <div className='tab-window-container'>
       <DraggableItem item={windowTabData}>
         <div
+          title='Select window'
           className={`tab-window-header ${isWindowSelected ? 'tab-window-header--selected' : ''}`}
           onClick={onWindowToggle}
         >
@@ -54,11 +55,12 @@ const TabWindow = ({
             <DraggableItem key={tab.tabId} item={tab}>
               <li 
                 key={tab.tabId}
+                title='Select tab'
+                onClick={() => toggleTab(tab.tabId)}
                 className={`
                   tab-window-list-item 
                   ${isTabSelected(tab.tabId) ? 'tab-window-list-item--selected' : ''}
                 `}
-                onClick={() => toggleTab(tab.tabId)}
               >
                 <img className='tab-window-list-item-icon' src={tab.favIcon} alt='' />
                 <div className='tab-window-list-item-title'>{tab.title}</div>

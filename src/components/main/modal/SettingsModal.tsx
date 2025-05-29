@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 import './styles/SettingsModal.css';
-import { useSettingsContext, useSettingsDispatch } from '../../../contexts/SettingsContext';
+import { Themes, useSettingsContext, useSettingsDispatch } from '../../../contexts/SettingsContext';
 import Icon from '../../common/Icon';
 import Switch from '../../common/Switch';
 
@@ -15,7 +15,7 @@ const SettingsModal = ({
   const updateSettings = useSettingsDispatch();
 
   const handleThemeChange = (e: ChangeEvent<HTMLSelectElement>) => {
-    updateSettings({ theme: e.target.value as 'light' | 'dark' });
+    updateSettings({ theme: e.target.value as Themes });
   };
 
   const handleLazyLoadToggle = (checked: boolean) => {
@@ -46,6 +46,8 @@ const SettingsModal = ({
             >
               <option value='light'>Light</option>
               <option value='dark'>Dark</option>
+              <option value='warm'>Warm</option>
+              <option value='cool'>Cool</option>
             </select>
           </div>
 
