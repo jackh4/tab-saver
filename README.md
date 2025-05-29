@@ -1,16 +1,16 @@
-# Tab Saver
+# Tab Saver Chrome Extension
 
-Chrome extension to save and organize your open tabs and windows into folders.
+Save and organize your open tabs and windows into folders.
 
 ## Download
 
-...
+This extension will be available on the Chrome Store.
 
-## Current Features
+## Features
 
 - Save tabs and windows into named tab folders
 - Drag and drop individual tab or entire windows into folders
-- Persist folders using Chrome local storage
+- Custom user settings
 
 ## Tech Stack
 
