@@ -9,7 +9,7 @@ export function getPrettyDate(date: string): string {
   });
 };
 
-export function generateLazyURL(
+export function createLazyURL(
   title: string,
   favIconURL: string,
   url: string,

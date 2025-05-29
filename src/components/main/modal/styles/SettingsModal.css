@@ -15,7 +15,7 @@
 .settings-modal-content {
   border: 1px solid var(--border-color);
   background-color: var(--primary-color);
-  width: 60%;
+  width: 45%;
   margin: 8px;
   padding: 8px;
   opacity: 1;
@@ -25,6 +25,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -36,4 +37,25 @@
 
 .settings-modal-body {
   padding: 8px;
+}
+
+.settings-option-container {
+  display: flex;
+  height: 24px;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.settings-label {
+  color: var(--text-color);
+}
+
+.settings-select {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.settings-select:focus {
+  outline: none;
 }
