@@ -4,7 +4,7 @@ Use Tab Saver to save and organize your open tabs and windows into tab folders.
 
 ## Download
 
-This extension will be available on the Chrome Store.
+This extension is available on the [Chrome Store](https://chromewebstore.google.com/detail/enkjjkfnpiodnniighibdjbnlppnfnde?utm_source=item-share-cb).
 
 ## Features
 
