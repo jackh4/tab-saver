@@ -21,6 +21,12 @@ This extension is available on the [Chrome Store](https://chromewebstore.google.
 - Chrome API
 - nanoid
 
+## Roadmap
+
+- Toast Notifications
+- Drag and reorder tabs in tab folders feature
+- Cloud sync between devices using Firebase
+
 ## Support
 
 Report bugs or request features via [Github Issues](https://github.com/jackh4/tab-saver/issues)
