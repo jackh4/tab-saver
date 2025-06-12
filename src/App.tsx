@@ -1,11 +1,14 @@
 import './App.css';
 import { SettingsProvider } from './contexts/SettingsContext';
+import { ToastProvider } from './contexts/ToastContext';
 import MainContainer from './components/main/MainContainer';
 
 function App() {
   return (
     <SettingsProvider>
-      <MainContainer/>
+      <ToastProvider>
+        <MainContainer/>
+      </ToastProvider>
     </SettingsProvider>
   );
 }

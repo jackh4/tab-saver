@@ -3,6 +3,7 @@ import { tabData, windowTabData } from '../../../types';
 import { useSettingsContext } from '../../../contexts/SettingsContext';
 import { DragItem } from '../../../contexts/DragContext';
 import { useTabFolderDispatch } from '../../../contexts/TabFolderContext';
+import { useToastContext } from '../../../contexts/ToastContext';
 import useCollapse from '../../../hooks/useCollapse';
 import useEditTitle from '../../../hooks/useEditTitle';
 import { createLazyURL } from '../../../utils/functions';
@@ -19,6 +20,7 @@ const TabFolderDetails = ({
   tabWindowData,
 }: TabFolderDetailsProps) => {
   const settings = useSettingsContext();
+  const { addToast } = useToastContext();
 
   const dispatch = useTabFolderDispatch();
 
@@ -33,6 +35,18 @@ const TabFolderDetails = ({
     initialTitle: tabWindowData.title,
     initialEditState: false,
   });
+
+  const handleToastNotif = (
+    message: string, 
+    success: boolean,
+    duration: number = 3000
+  ) => {
+    if (success) {
+      addToast(message, 'success', duration);
+    } else {
+      addToast(message, 'error', duration);
+    }
+  };
 
   const handleEditWindowTitle = (windowTitle: string) => {
     dispatch({ 
@@ -55,11 +69,12 @@ const TabFolderDetails = ({
     });
   };
 
-  const handleAddTab = (tab: tabData) => {
-    dispatch({
+  const handleAddTab = async (tab: tabData) => {
+    const success = await dispatch({
       type: 'ADD_TAB_TO_WINDOW',
       payload: { folderId: tabFolderId, windowId: tabWindowData.windowId, tab: tab }
     });
+    handleToastNotif('Successfully added tab', success);
   };
 
   const canDrop = (item: DragItem) => {

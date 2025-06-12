@@ -14,7 +14,7 @@ type TabFolderContextType = {
 };
 
 type TabFolderDispatchContextType = {
-  dispatch: (action: TabFolderAction) => void;
+  dispatch: (action: TabFolderAction) => Promise<boolean>;
 };
 
 const TabFolderContext = createContext<TabFolderContextType | undefined>(undefined);
@@ -168,14 +168,19 @@ export const TabFolderProvider = ({ children }: { children: ReactNode }) => {
     });
   }, []);
 
-  const dispatch = (action: TabFolderAction) => {
+  const dispatch = async (action: TabFolderAction): Promise<boolean> => {
     const newState = tabFolderReducer(tabFolders, action);
-    chrome.storage.local.set({ tabFolders: newState }, () => {
-      if (chrome.runtime.lastError) {
-        console.warn('Error dispatching folder update:', chrome.runtime.lastError.message);
-      }
+    return new Promise((resolve) => {
+      chrome.storage.local.set({tabFolders: newState }, () => {
+        if (chrome.runtime.lastError) {
+          console.warn('Error dispatching folder update:', chrome.runtime.lastError.message);
+          resolve(false);
+        } else {
+          rawDispatch(action);
+          resolve(true);
+        }
+      });
     });
-    rawDispatch(action);
   };
 
   if (!isLoaded) return null; 
